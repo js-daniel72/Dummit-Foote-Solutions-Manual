@@ -1,0 +1,316 @@
+\documentclass[12pt, a4paper]{article}
+
+% --- Essential Packages ---
+\usepackage{amsmath, amssymb, amsfonts} 
+\usepackage{geometry}                   
+\geometry{hmargin=1.5cm, vmargin=2cm}
+\usepackage{hyperref}                   
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\usepackage{enumitem}
+\usepackage{ifthen} 
+\usepackage{needspace} % <--- ADDED: Package to require a specific amount of space
+
+% --- Custom Streamlined Solution Environments ---
+
+\newcounter{probnum} 
+\setcounter{probnum}{0} 
+
+% 1. Standard solution environment
+\newenvironment{solution}[1]{%
+    \vspace{1em}% 
+    % --- ADDED: Checks if there is enough space. If not, forces a new page. ---
+    \needspace{10\baselineskip}% 
+    \ifthenelse{\equal{#1}{}}%
+        {\stepcounter{probnum}}% 
+        {\setcounter{probnum}{#1}}% 
+    \begin{list}{}{%
+        \setlength{\leftmargin}{2em}% 
+        \setlength{\labelwidth}{1.5em}% 
+        \setlength{\labelsep}{0.5em}% 
+        \setlength{\topsep}{0pt}%
+        \setlength{\partopsep}{0pt}%
+    }%
+    \item[\textbf{\theprobnum.}]%
+}{%
+    \end{list}%
+    \par\vspace{1em}% 
+}
+
+% 2. Sub-parts enumeration template
+\newlist{subparts}{enumerate}{1}
+\setlist[subparts]{
+    label=\textbf{\alph*.},
+    leftmargin=1.3em, 
+    labelwidth=0.8em, 
+    labelsep=0.5em,   
+    align=left,       
+    topsep=0pt,
+    itemsep=0.2em
+}
+
+% 3. Dedicated environment for solutions 
+\newenvironment{solutionparts}[1]{%
+    \vspace{1em}%
+    % --- ADDED: Checks if there is enough space. If not, forces a new page. ---
+    \needspace{10\baselineskip}% 
+    \ifthenelse{\equal{#1}{}}%
+        {\stepcounter{probnum}}%
+        {\setcounter{probnum}{#1}}%
+    \noindent\makebox[1.5em][r]{\textbf{\theprobnum.}}\vspace*{-\baselineskip}%
+    \begin{subparts}[leftmargin=3.3em, labelwidth=0.8em, labelsep=0.5em, align=left]
+}{%
+    \end{subparts}%
+    \par\vspace{1em}%
+}
+
+\begin{document}
+
+% ==========================================
+%                TITLE PAGE
+% ==========================================
+\begin{titlepage}
+    \centering
+    \vspace*{2in}
+    {\Huge \bfseries Solutions Manual \par}
+    \vspace{0.5in}
+    {\Large Abstract Algebra by Dummit \& Foote (3rd ed.) \par}
+    \vspace{1.5in}
+    {\large \textbf{Prepared by:} \par}
+    {\large Daniel Jiesung Jung (\texttt{daniel72@postech.ac.kr})\par}
+    \vfill
+    {\large \today \par}
+\end{titlepage}
+
+% ==========================================
+%              TABLE OF CONTENTS
+% ==========================================
+\newpage
+\tableofcontents
+\newpage
+
+% ==========================================
+%                PREFACE
+% ==========================================
+\newpage
+\section*{Preface}
+\addcontentsline{toc}{section}{Preface} % Adds the Preface to the Table of Contents
+
+This solutions manual grew out of my effort to study Dummit \& Foote thoroughly.
+
+The textbook is famous for placing important results in the exercises rather than in the main body of the text. Because of this, I will summarize any theory-like results at the beginning of each subsection's solutions so they can be referenced easily.
+
+Please reach out to me at \texttt{daniel72@postech.ac.kr} if you spot any mistakes or have any suggestions for improvement.
+
+
+\vspace{1cm}
+\begin{flushright}
+Daniel Jiesung Jung \\
+Pohang, South Korea \\
+\today
+\end{flushright}
+\newpage
+
+% ==========================================
+%                MAIN CONTENT
+% ==========================================
+
+\section{Introduction to Groups} 
+\subsection{Basic Axioms and Examples} 
+
+Problems 1\(\sim\)14 seem simple enough, so I will come back to them when I have the time
+
+Unsolved problems: 24, 25, 26, 27, 35, 36
+
+Problems that need revisiting: 19, 30
+
+\begin{solution}{15}
+    We do this by induction.
+    
+    Base case: If \(n=1\), then it is evident that \((a_1)^{-1} = a_1^{-1}\).
+    
+    Inductive step: If \((a_1a_2\cdots a_k)^{-1} = a_k^{-1}a_{k-1}^{-1}\cdots a_1^{-1}\) for some integer \(k\), then we see that
+    \[
+    \begin{aligned}
+        \left((a_1a_2\cdots a_k) a_{k+1}\right)^{-1}  &= a_{k+1}^{-1} (a_1a_2\cdots a_k)^{-1}\\
+                                                      &= a_{k+1}^{-1} (a_k^{-1} a_{k-1}^{-1}\cdots a_1^{-1})\\
+                                                      &= a_{k+1}^{-1} a_k^{-1} a_{k-1}^{-1}\cdots a_1^{-1},
+    \end{aligned}
+    \]
+    which completes the proof. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{}
+    If \(x^2 = 1\), then \(x\) has order of at most 2 by definition. Conversely, if \(x\) has order 1 then \(x^2 = 1^2 = 1\), and if \(x\) has order 2 then \(x^2 = 1\). \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{}
+    If \(|x|=n\), then we have \(x^n = 1\). Multiplying by \(x^{-1}\) on both sides, we get \(x^{n-1} = x^{-1}\). \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{}
+    This is way too obvious.
+\end{solution}
+
+\begin{solutionparts}{19}
+    \item This can be done by simple counting.
+    \[
+    \begin{aligned}
+        x^{a+b} &= \underbrace{x\cdots\cdots \cdots x}_{a+b\text{ times}} \\
+                &= \underbrace{x \cdots x}_{a\text{ times}} \underbrace{x \cdots x}_{b\text{ times}}\\
+                &= \underbrace{(x \cdots x)}_{a\text{ times}} \underbrace{(x \cdots x)}_{b\text{ times}}\\
+                &= x^ax^b.
+    \end{aligned}
+    \]
+
+    \item This can be seen by simply observing that
+    \(x^{-a}x^a = \underbrace{x^{-1}\cdots x^{-1}}_{a\text{ times}}\underbrace{x \cdots x}_{a \text{ times}} = 1\).
+    
+    (To be precise, the last equation has to be proved by induction, but it is fairly obvious.)
+
+    (One additional note is that we haven't really shown \(x^ax^{-a} = 1\). But noting that the inverse of an element in a group is unique, we don't really need to show this.)
+
+    \item Gwichana
+\end{solutionparts}
+
+\begin{solution}{}
+    
+    For any positive integer \(k\), we have \(x^k = 1\) if and only if \(1 = (x^{-1})^k\),
+    by multiplying appropriate terms in both sides.
+    Now, there are 2 cases: \(x\) can have either finite or infinite order.
+
+    If \(x\) has finite order \(n\), then we have \(x^k \neq 1\) for \(k = 1, \cdots, n-1\),
+    and this implies that \(1 \neq (x^{-1})^k\).
+    Also, we have \(x^n = 1\), which implies \(1 = (x^{-1})^n\).
+    This shows that \(x^{-1}\) has order \(n\).
+    
+
+    Now, if \(x\) has infinite order, then for any fixed positive integer \(n\) we have \(x^n \neq 1\).
+    This implies that \(1 \neq (x^{-1})^n\),
+    which implies that \(x^{-1}\) has infinite order.
+
+    This completes the proof. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{}
+    If \(x\) has odd order in the group, then we have \(x^n = 1\) for some odd integer \(n\).
+    Then, \(x^{n+1} = x\).
+    Since \(n+1\) is even, we can write \(n+1 = 2k\) for some integer \(k\).
+    From this we conclude that \(x^{2k} = (x^2)^k= x\), completing the proof. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{}
+    We first observe that for any positive integer \(i\), we have \((g^{-1}xg)^i = g^{-1}x^ig\). (Technically this must be proven through induction, but we will not do it here.)
+
+    If \(x\) has finite order \(n\), then we have \(x^k \neq 1\) for \(k = 1, \cdots, n-1\), and \(x^n = 1\). For any \(k \in \{1, \cdots, n-1\}\), we have \((g^{-1}xg)^k = g^{-1}x^kg\).
+    If this were 1, then it would imply that \(x^k = gg^{-1} = 1\), which must not be true,
+    so we have \(g^{-1}x^kg \neq 1\). Also, we observe that \((g^{-1}xg)^n = g^{-1}x^ng = g^{-1}g = 1\).
+    This shows that \(g^{-1}xg\) also has order \(n\). If \(x\) has infinite order, then we can prove similarly that \(g^{-1}xg\) has infinite order too.
+
+    To conclude \(|ab| = |ba|\) from this, simply let \(x = ab\) and \(g = a\). \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{}
+    Observe that \((x^s)^t = x^{st} = x^n\). Observe further two things.
+    \begin{itemize}
+        \item \((x^s)^k \neq 1\) for \(k = 1, \cdots, t-1\), since \(x^i \neq 1\) for all \(i < n\). 
+        \item \((x^s)^t = 1\), since \((x^s)^t = x^n\).
+    \end{itemize}
+    This concludes that \(x^s\) has order \(k\). \(\blacksquare\)
+\end{solution}
+
+24, 25, 26, 27 not done
+
+\begin{solutionparts}{28}
+    \item We have
+        \[[(a_1, b_1)(a_2, b_2)](a_3, b_3) = ([a_1a_2]a_3, [b_1b_2]b_3)\]
+    and
+        \[(a_1, b_1)[(a_2, b_2)(a_3, b_3)] = (a_1[a_2a_3], b_1[b_2b_3]).\]
+    The associativity of groups \(A\) and \(B\) imply that the two expressions the same, so that \(A \times B\) is associative.
+
+    \item For any \(a \in A\) and \(b \in B\), we have \((1,1)(a,b) = (1a, 1b) = (a,b)\) and \((a,b)(1,1)=(a1, b1) = (a,b)\), implying that \((1,1)\) is the identity of \(A \times B\).
+    
+    \item For any \(a \in A\) and \(b \in B\), if \(a^{-1}\) is the inverse of \(a\) in \(A\) and \(b^{-1}\) the inverse of \(b\) in \(B\), then we see that \((a,b)(a^{-1}, b^{-1}) = (aa^{-1}, bb^{-1}) = (1,1)\) and \((a^{-1}, b^{-1})(a, b) = (a^{-1}a, b^{-1}b) = (1, 1)\), showing that \((a^{-1}, b^{-1})\) is the inverse of \((a,b)\) in \(A \times B\). \(\blacksquare\)
+\end{solutionparts}
+
+\begin{solution}{}
+\(A \times B\) is an abelian group if and only if for any elements \(a_1, a_2 \in A\) and \(b_1, b_2 \in B\), we have \((a_1, b_1)(a_2, b_2) = (a_2, b_2)(a_1, b_1)\). Here, \((a_1, b_1)(a_2, b_2) = (a_1a_2, b_1b_2)\) and \((a_2, b_2)(a_1, b_1) = (a_2a_1, b_2b_1)\). This is true if and only if \(a_1a_2 = a_2a_1\) and \(b_1b_2 = b_2b_1\), if and only if \(A\) and \(B\) are both abelian. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{30} % Last part can be more spelled out
+    We see that \((a, 1)(1, b)\) and \((1, b)(a, 1)\) both evaluate to \((a, b)\), so they commute.
+    To see that the order of \((a, b)\) is the lcm of \(|a|\) and \(|b|\), we observe that
+    \[
+    \begin{aligned}
+        (a, b)^n &= [(a,1)(1,b)]^n\\
+                 &= (a,1)^n(1,b)^n\\
+                 &= (a^n, 1)(1, b^n)\\
+                 &= (a^n, b^n),
+    \end{aligned}
+    \]
+    since \((a,1)\) and \((1, b)\) commute.
+    For this to be the identity we see that both \(a^n\) and \(b^n\) must be the identity.
+    Therefore, \(|(a, b)|\) must be the lcm of \(|a|\) and \(|b|\). \(\blacksquare\) 
+\end{solution}
+
+\begin{solution}{}
+    Let \(G\) be a group of even order. We have to prove that there is an element \(x\) in \(G\), other than the identity, such that \(x^2 = 1\).
+
+    Suppose for the sake of contradiction that 
+\end{solution}
+
+\begin{solution}{}
+    By definition of an order of an element, if \(n\) is the order of the element \(x\), we have \(x^k \neq 1\) for \(k = 1, \cdots, n-1\), and \(x^n = 1\). Now, assume for the sake of contradiction that \(x^i = x^j\) for some \(1 \le i < j \le n-1\). Then, \(x^i x^{n-j} = x^jx^{n-j}\) implies \(x^{n+i-j} = x^n\). Observing that \(0 < n+i-j < n\) and \(x^n = 1\), we see that \(x^{n+i-j} = 1\), which contradicts our very first observation. Therefore, \(1, x, \cdots, x^{n-1}\) must be distinct elements.
+
+    To deduce \(|x| \leq |G|\) from here, we simply observe that \(G\) has at least \(n\) elements from the previous paragraph. \(\blacksquare\)
+
+\end{solution}
+
+\begin{solution}{}
+    Assume \(x\) is of order \(n\) in the group \(G\).
+    We have \(x^n = 1\) and \(x^{k} \neq 1\) for \(k = 1, \cdots, n-1\).
+    Then, for \(1 \le j < 2n\),
+    the only value of \(j\) that satisfies \(x^j = 1\)
+    is \(j = n\).
+    \begin{subparts}
+        \item If \(n\) is odd, then for \(1 \le j < 2n\) the only value that satisfies \(x^j = 1\)
+        is \(n\), which is odd.
+
+        Now, suppose for the sake of contradiction that
+        for some \(i\) such that \(1 \le i < n\), we have \(x^i = x^{-i}\).
+        Then, we have \(x^{2i} = 1\). But \(1 \le 2i < 2n\) and \(2i\) is even,
+        contradicting our initial observation.
+        Therefore, if \(n\) is odd then it must be that
+        \(x^i \neq x^{-i}\) for \(i = 1, \cdots, n-1\).
+
+        \item If \(n\) is even, then for \(1 \le j < 2n\) the only value that satisfies \(x^j = 1\) is \(n\),
+        and if this is the case then \(j = n = 2k\).
+        
+        Here, suppose that
+        for some \(i\) such that \(1 \le i < n\), we have \(x^i = x^{-i}\).
+        Then, we have \(x^{2i} = 1\). But since \(1 \le 2i < 2n\),
+        it must be the case that \(2i = 2k\), or that \(i = k\).
+        Conversely, we obviously have \(x^k = x^{-k}\) since \(x^{2k} = x^n = 1\).
+    \end{subparts}
+    This completes the argument. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{}
+    \(x\) being an infinite order element in \(G\) implies that
+    for any positive integer \(n\), we have \(x^n \neq 1\).
+    By similar logic from the solution for problem 32,
+    for the sake of contradiction assume that \(x^i = x^j\) for some distinct integers \(i\) and \(j\),
+    and assume \(i < j\) without loss of generality.
+    Then, \(x^ix^{-i} = x^jx^{-i}\) implies that \(x^{j-i} = 1\), which contradicts our very first observation.
+    Therefore, elements of the form \(x^n\) where \(n \in \mathbb Z\) must be distinct. \(\blacksquare\)
+\end{solution}
+
+
+35, 36 not done
+
+
+\end{document}
