@@ -14,6 +14,14 @@
 \usepackage{enumitem}
 \usepackage{ifthen} 
 \usepackage{needspace} % <--- ADDED: Package to require a specific amount of space
+\usepackage{tabularray}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
 
 % --- Custom Streamlined Solution Environments ---
 
@@ -119,14 +127,51 @@ Pohang, South Korea \\
 %                MAIN CONTENT
 % ==========================================
 
+
+% ==========================================
+%                 Section 1
+% ==========================================
 \section{Introduction to Groups} 
-\subsection{Basic Axioms and Examples} 
+\subsection{Basic Axioms and Examples}
 
-Problems 1\(\sim\)14 seem simple enough, so I will come back to them when I have the time
+Skipped problems: 1 \(\sim\) 9, 11 \(\sim\) 14
 
-Unsolved problems: 24, 25, 26, 27, 35, 36
+\noindent Problems that need revisiting: 19
+\vspace{1em}
 
-Problems that need revisiting: 19, 30
+
+%Recall the residue classes in \(\Z / n\Z\).
+%\begin{itemize}
+%    \item The elements are the equivalence classes of \(\sim\) where \(a \sim b\) if and only if \(n \mid b-a\).
+%          There are exactly \(n\) elements in \(\Z / n\Z\): \(\{\bar 0, \bar 1, \cdots, \overline{n-1}\}\).
+%    \item Addition is defined as \(\overline{a} + \overline{b} = \overline{a+b}\).
+%    \item Multiplication is defined as \(\overline{a} \cdot \overline{b} = \overline{ab}\).
+%    \item These binary operations are well-defined.
+%\end{itemize}
+
+%\begin{solution}{3}
+%    \[
+%    \begin{aligned}
+%        (\overline{a} + \overline{b}) + \overline{c} &= \overline{a+b} + \overline{c}\\
+%                                                     &= \overline{(a+b)+c}\\
+%                                                     &= \overline{a+(b+c)} & (\because \text{associativity in } \Z)\\
+%                                                     &= \overline{a} + \overline{b+c} \\
+%                                                     &= \overline{a} + (\overline{b} + \overline{c})
+%    \end{aligned}
+%    \]
+%\end{solution}
+
+\begin{solution}{10}
+    Let \(G = \{g_1, \cdots, g_n\}\) be a finite group and \(A\) the group table of \(G\).
+    By definition, \((A)_{ij} = g_ig_j\). 
+
+    If \(G\) were abelian, then for any indices \(i, j\), we have \(g_ig_j = g_jg_i\), which implies that
+    \((A)_{ij} = (A)_{ji}\). The choices for \(i\) and \(j\) were arbitrary, so it follows that \(A\) is symmetric.
+
+    Conversely, if \(A\) were symmetric then for any indices \(i, j\) we have \((A)_{ij} = (A)_{ji}\),
+    which in turn implies that \(g_ig_j = g_jg_i\), concluding that \(G\) is abelian. \(\blacksquare\)
+\end{solution}
+
 
 \begin{solution}{15}
     We do this by induction.
@@ -144,16 +189,21 @@ Problems that need revisiting: 19, 30
     which completes the proof. \(\blacksquare\)
 \end{solution}
 
-\begin{solution}{}
+\begin{solution}{16}
     If \(x^2 = 1\), then \(x\) has order of at most 2 by definition. Conversely, if \(x\) has order 1 then \(x^2 = 1^2 = 1\), and if \(x\) has order 2 then \(x^2 = 1\). \(\blacksquare\)
 \end{solution}
 
-\begin{solution}{}
+\begin{solution}{17}
     If \(|x|=n\), then we have \(x^n = 1\). Multiplying by \(x^{-1}\) on both sides, we get \(x^{n-1} = x^{-1}\). \(\blacksquare\)
 \end{solution}
 
-\begin{solution}{}
-    This is way too obvious.
+\begin{solution}{18}
+    For the forward directions,
+    from \(xy = yx\) multiply \(y^{-1}\) on the left of both sides to deduce \(y^{-1}xy = x\),
+    then multiply \(x^{-1}\) on the left of both sides to deduce \(x^{-1}y^{-1}xy = 1\).
+    For the backward directions,
+    from \(x^{-1}y^{-1}xy = 1\) multiply \(x\) then \(y\) on the left of both sides to retrieve
+    \(y^{-1}xy = x\) and then \(xy = yx\). \(\blacksquare\)
 \end{solution}
 
 \begin{solutionparts}{19}
@@ -162,22 +212,27 @@ Problems that need revisiting: 19, 30
     \begin{aligned}
         x^{a+b} &= \underbrace{x\cdots\cdots \cdots x}_{a+b\text{ times}} \\
                 &= \underbrace{x \cdots x}_{a\text{ times}} \underbrace{x \cdots x}_{b\text{ times}}\\
-                &= \underbrace{(x \cdots x)}_{a\text{ times}} \underbrace{(x \cdots x)}_{b\text{ times}}\\
+                &= (\underbrace{x \cdots x}_{a\text{ times}}) (\underbrace{x \cdots x}_{b\text{ times}})\\
                 &= x^ax^b.
+    \end{aligned}
+    \]
+    also,
+    \[
+    \begin{aligned}
+        (x^a)^b &= (\underbrace{x\cdots x}_{a\text{ times}})^b\\
+                &= \underbrace{(\underbrace{x\cdots x}_{a\text{ times}})\cdots(\underbrace{x\cdots x}_{a\text{ times}})}_{b\text{ times}}\\
+                &= \underbrace{x\cdots \cdots x}_{ab\text{ times}}\\
+                &= x^{ab}.
     \end{aligned}
     \]
 
     \item This can be seen by simply observing that
-    \(x^{-a}x^a = \underbrace{x^{-1}\cdots x^{-1}}_{a\text{ times}}\underbrace{x \cdots x}_{a \text{ times}} = 1\).
-    
-    (To be precise, the last equation has to be proved by induction, but it is fairly obvious.)
+    \(x^{-a}x^a = \underbrace{x^{-1}\cdots x^{-1}}_{a\text{ times}}\underbrace{x \cdots x}_{a \text{ times}} = 1\), and \(x^a x^{-a}\) similarly.
 
-    (One additional note is that we haven't really shown \(x^ax^{-a} = 1\). But noting that the inverse of an element in a group is unique, we don't really need to show this.)
-
-    \item Gwichana
+    \item This seems to be way too much case classification without much reward, so I will skip this at the moment.
 \end{solutionparts}
 
-\begin{solution}{}
+\begin{solution}{20}
     
     For any positive integer \(k\), we have \(x^k = 1\) if and only if \(1 = (x^{-1})^k\),
     by multiplying appropriate terms in both sides.
@@ -196,14 +251,14 @@ Problems that need revisiting: 19, 30
     This completes the proof. \(\blacksquare\)
 \end{solution}
 
-\begin{solution}{}
+\begin{solution}{21}
     If \(x\) has odd order in the group, then we have \(x^n = 1\) for some odd integer \(n\).
     Then, \(x^{n+1} = x\).
     Since \(n+1\) is even, we can write \(n+1 = 2k\) for some integer \(k\).
     From this we conclude that \(x^{2k} = (x^2)^k= x\), completing the proof. \(\blacksquare\)
 \end{solution}
 
-\begin{solution}{}
+\begin{solution}{22}
     We first observe that for any positive integer \(i\), we have \((g^{-1}xg)^i = g^{-1}x^ig\). (Technically this must be proven through induction, but we will not do it here.)
 
     If \(x\) has finite order \(n\), then we have \(x^k \neq 1\) for \(k = 1, \cdots, n-1\), and \(x^n = 1\). For any \(k \in \{1, \cdots, n-1\}\), we have \((g^{-1}xg)^k = g^{-1}x^kg\).
@@ -214,16 +269,83 @@ Problems that need revisiting: 19, 30
     To conclude \(|ab| = |ba|\) from this, simply let \(x = ab\) and \(g = a\). \(\blacksquare\)
 \end{solution}
 
-\begin{solution}{}
+\begin{solution}{23}
     Observe that \((x^s)^t = x^{st} = x^n\). Observe further two things.
     \begin{itemize}
-        \item \((x^s)^k \neq 1\) for \(k = 1, \cdots, t-1\), since \(x^i \neq 1\) for all \(i < n\). 
+        \item \((x^s)^k \neq 1\) for \(k = 1, \cdots, t-1\), since here \(sk < st = n\),
+        and \(x^i \neq 1\) for all \(1 \le i < n\). 
         \item \((x^s)^t = 1\), since \((x^s)^t = x^n\).
     \end{itemize}
-    This concludes that \(x^s\) has order \(k\). \(\blacksquare\)
+    This concludes that \(x^s\) has order \(t\). \(\blacksquare\)
 \end{solution}
 
-24, 25, 26, 27 not done
+\begin{solution}{24}
+    Pick any two elements \(a, b \in G\) that commutes.
+    We first handle the obvious case when \(n = 0\): \((ab)^0 = a^0b^0 = 1\).
+    
+    Following the hint, we will first do induction on positive \(n\).
+    For the base case, if \(n=1\) then \((ab)^1 = a^1b^1\) is trivially true.
+    For the inductive step, assume that \((ab)^k = a^kb^k\).
+    Then, we have
+    \[
+    \begin{aligned}
+        (ab)^{k+1} &= a(ba)^kb\\
+                   &= a(ab)^kb &\text{ (since \(a\) and \(b\) commute)}\\
+                   &= aa^kb^kb &\text{ (by the induction hypothesis)}\\
+                   &= a^{k+1}b^{k+1}.
+    \end{aligned}
+    \]
+    This shows that for any positive \(n\), we have \((ab)^n = a^nb^n\).
+
+    To show that this fact extends to negative integers,
+    fix an arbitrary positive integer \(m\), and we wish to show that \((ab)^{-m} = a^{-m}b^{-m}\).
+    We first see that since \(a\) and \(b\) commutes, \(a^{-1}\) and \(b^{-1}\) also commutes, since
+    \(a^{-1}b^{-1} = (ba)^{-1} = (ab)^{-1} = b^{-1}a^{-1}\). Then, we observe that
+    \[
+    \begin{aligned}
+        (ab)^{-m}&= ((ab)^{-1})^m\\
+                 &= (b^{-1}a^{-1})^m\\
+                 &= (a^{-1}b^{-1})^m & \text{ (since \(a^{-1}\) and \(b^{-1}\) commutes)}\\
+                 &= (a^{-1})^m(b^{-1})^m & \text{ (again, since \(a^{-1}\) and \(b^{-1}\) commutes)}\\
+                 &= a^{-m}b^{-m}.
+    \end{aligned}
+    \]
+    This completes the argument. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{25}
+    \(x^2 = 1\) implies that \(x = x^{-1}\). Then, for any \(a, b \in G\), we see that 
+    \[
+    \begin{aligned}
+        ab &= a^{-1}b^{-1}  & \text{ (since \(x = x^{-1}\))}\\
+           &= (ba)^{-1}\\
+           &= ba.            & \text{ (since \(x = x^{-1}\))}
+    \end{aligned}
+    \]
+    This shows that \(G\) is abelian. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{26}
+    We first see that \(\star\) is indeed a binary operation on \(H\),
+    i.e. a function such that \(\star: H \times H \to H\),
+    since \(H\) is closed under \(\star\).
+    (To spell it out, it is because for any \(h, k \in H\), we have \(h \star k \in H\).)
+
+    Now we check the group axioms. Associativity of \(\star\) in \(H\) is inherited directly from the fact that \(G\) is associative.
+    If \(1\) is the identity of \(G\), then in particular, for any \(h \in H\), we have \(h\star 1 = 1 \star h = h\).
+    Additionally we have to check that \(1 \in H\). To see this, for some \(h \in H\) we have \(h^{-1} \in H\),
+    so consequently \(1 = hh^{-1} \in H\).
+    Finally, since \(H\) is closed under inverses, for any \(h \in H\) we have \(h^{-1} \in H\), so the inverse axiom is satisfied. This completes the proof. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{27}
+    Denote \( \langle x \rangle = \{x^n \mid n \in \Z\}\).
+    It suffices to show that for any two elements \(p, q \in \langle x \rangle\), it must be that \(pq \in \langle x \rangle\) and \(p^{-1} \in \langle x \rangle\).
+    
+    Noting that \(p = x^{n_p}\) for some \(n_p \in \Z\) and \(q = x^{n_q}\) for some \(n_q \in \Z\),
+    it is easy to see that \(pq = x^{n_p}x^{n_q} = x^{n_p + n_q} \in \langle x \rangle\) and
+    \(p^{-1} = (x^{n_p})^{-1} = x^{-n_p} \in \langle x \rangle\). \(\blacksquare\)
+\end{solution}
 
 \begin{solutionparts}{28}
     \item We have
@@ -237,11 +359,11 @@ Problems that need revisiting: 19, 30
     \item For any \(a \in A\) and \(b \in B\), if \(a^{-1}\) is the inverse of \(a\) in \(A\) and \(b^{-1}\) the inverse of \(b\) in \(B\), then we see that \((a,b)(a^{-1}, b^{-1}) = (aa^{-1}, bb^{-1}) = (1,1)\) and \((a^{-1}, b^{-1})(a, b) = (a^{-1}a, b^{-1}b) = (1, 1)\), showing that \((a^{-1}, b^{-1})\) is the inverse of \((a,b)\) in \(A \times B\). \(\blacksquare\)
 \end{solutionparts}
 
-\begin{solution}{}
+\begin{solution}{29}
 \(A \times B\) is an abelian group if and only if for any elements \(a_1, a_2 \in A\) and \(b_1, b_2 \in B\), we have \((a_1, b_1)(a_2, b_2) = (a_2, b_2)(a_1, b_1)\). Here, \((a_1, b_1)(a_2, b_2) = (a_1a_2, b_1b_2)\) and \((a_2, b_2)(a_1, b_1) = (a_2a_1, b_2b_1)\). This is true if and only if \(a_1a_2 = a_2a_1\) and \(b_1b_2 = b_2b_1\), if and only if \(A\) and \(B\) are both abelian. \(\blacksquare\)
 \end{solution}
 
-\begin{solution}{30} % Last part can be more spelled out
+\begin{solution}{30}
     We see that \((a, 1)(1, b)\) and \((1, b)(a, 1)\) both evaluate to \((a, b)\), so they commute.
     To see that the order of \((a, b)\) is the lcm of \(|a|\) and \(|b|\), we observe that
     \[
@@ -254,23 +376,43 @@ Problems that need revisiting: 19, 30
     \]
     since \((a,1)\) and \((1, b)\) commute.
     For this to be the identity we see that both \(a^n\) and \(b^n\) must be the identity.
-    Therefore, \(|(a, b)|\) must be the lcm of \(|a|\) and \(|b|\). \(\blacksquare\) 
+    \(a^n\) is the identity if and only if \(|a|\) divides \(n\), and
+    \(b^n\) is the identity if and only if \(|b|\) divides \(n\).
+    Now, the smallest positive \(n\) such that both \(|a|\) and \(|b|\) divides \(n\),
+    must be the lcm of \(|a|\) and \(|b|\),
+    and therefore \(|(a, b)|\) must be the lcm of \(|a|\) and \(|b|\). \(\blacksquare\) 
 \end{solution}
 
-\begin{solution}{}
-    Let \(G\) be a group of even order. We have to prove that there is an element \(x\) in \(G\), other than the identity, such that \(x^2 = 1\).
+\begin{solution}{31}
+    Let \(G\) be a group of even order.
+    We have to prove that there is an element in \(G\) of order 2.
 
-    Suppose for the sake of contradiction that 
+    Following the hint, define the set \(t(G) = \{g \in G \mid g \neq g^{-1}\}\).
+    We first see that if some \(a\) is some element in \(G\) such that \(a \in t(G)\),
+    then it must be that \(a^{-1} \in t(G)\) since \((a^{-1})^{-1} \neq a^{-1}\).
+    Moreover, \(a\) and \(a^{-1}\) must be distinct, again because of the condition \(a \neq a^{-1}\).
+    From this we can argue that \(t(G)\) as a set has even order, since the elements in \(t(G)\)
+    can be paired in two: \((a, a^{-1})\).
+    Since \(G\) also has even order, we conclude that \(G \smallsetminus t(G)\) must also have even order.
+
+
+    Now, we see that \(x \in G \smallsetminus t(G)\) if and only if \(x = x^{-1}\).
+    This implies that \(x^2 = 1\), so if \(x\) is not the identity then \(x\) has order 2 in \(G\).
+    Also, since \(1 = 1^{-1}\), we have \(1 \in G \smallsetminus t(G)\).
+    Since \(G \smallsetminus t(G)\) has even order,
+    some other element in \(G \smallsetminus t(G)\), other than the identity, must exist,
+    and this element must have order 2 in \(G\).
+    This concludes the proof. \(\blacksquare\)
 \end{solution}
 
-\begin{solution}{}
+\begin{solution}{32}
     By definition of an order of an element, if \(n\) is the order of the element \(x\), we have \(x^k \neq 1\) for \(k = 1, \cdots, n-1\), and \(x^n = 1\). Now, assume for the sake of contradiction that \(x^i = x^j\) for some \(1 \le i < j \le n-1\). Then, \(x^i x^{n-j} = x^jx^{n-j}\) implies \(x^{n+i-j} = x^n\). Observing that \(0 < n+i-j < n\) and \(x^n = 1\), we see that \(x^{n+i-j} = 1\), which contradicts our very first observation. Therefore, \(1, x, \cdots, x^{n-1}\) must be distinct elements.
 
     To deduce \(|x| \leq |G|\) from here, we simply observe that \(G\) has at least \(n\) elements from the previous paragraph. \(\blacksquare\)
 
 \end{solution}
 
-\begin{solution}{}
+\begin{solution}{33}
     Assume \(x\) is of order \(n\) in the group \(G\).
     We have \(x^n = 1\) and \(x^{k} \neq 1\) for \(k = 1, \cdots, n-1\).
     Then, for \(1 \le j < 2n\),
@@ -299,7 +441,7 @@ Problems that need revisiting: 19, 30
     This completes the argument. \(\blacksquare\)
 \end{solution}
 
-\begin{solution}{}
+\begin{solution}{34}
     \(x\) being an infinite order element in \(G\) implies that
     for any positive integer \(n\), we have \(x^n \neq 1\).
     By similar logic from the solution for problem 32,
@@ -309,8 +451,55 @@ Problems that need revisiting: 19, 30
     Therefore, elements of the form \(x^n\) where \(n \in \mathbb Z\) must be distinct. \(\blacksquare\)
 \end{solution}
 
+\begin{solution}{35}
+    By the definition of the order of an element in a group,
+    if \(x\) has finite order \(n\) in \(G\) then we have distinct elements
+    \(1, x, \dots, x^{n-1} \in G\), and then \(x^n = 1\).
 
-35, 36 not done
+    Now, fix any \(a \in \Z\), and we are left to show that \(x^a \in \{1, x, \cdots, x^{n-1}\}\).
+    By the division algorithm, we can write \(a = qn + r\) for some unique \(q\) and \(r\) where \(0 \le r < n\). Then we observe that 
+    \[
+    \begin{aligned}
+        x^a &= x^{qn + r}\\
+            &= (x^n)^q x^r \\
+            &= x^r \in \{1, x, \cdots, x^{n-1}\},
+    \end{aligned}
+    \]
+    since \(0 \le r < n\). This completes our argument. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{36}
+    The contraposition of the cancellation laws state that
+    for \(u, v \in G\), if \(u \neq v\) then we have \(au \neq av\) and \(ua \neq va\) for any \(a \in G\).
+    This implies that the group table must not have duplicate elements in the same row or column.
+    Keeping this rule in mind, and ensuring that there are no elements of order 4,
+    we see that the table below is the only possible group table for \(G = \{1, a, b, c\}\).
+
+    \begin{center}
+    \begin{tblr}{
+        rows = {1cm, rowsep = 2pt},
+        columns = {1cm, colsep = 2pt},
+        cells = {m, c},
+        hlines, vlines,
+        hline{2} = {1.5pt},
+        vline{2} = {1.5pt}
+    }
+    \(\cdot\) & \(1\) & \(a\) & \(b\) & \(c\) \\
+    \(1\)     & \(1\) & \(a\) & \(b\) & \(c\) \\
+    \(a\)     & \(a\) & \(1\) & \(c\) & \(b\) \\
+    \(b\)     & \(b\) & \(c\) & \(1\) & \(a\) \\
+    \(c\)     & \(c\) & \(b\) & \(a\) & \(1\)  
+    \end{tblr}
+    \end{center}
+    This matrix is symmetric, so by Exercise 1.1.10 \(G\) must be abelian. \(\blacksquare\)
+
+    (Note: we haven't proved that the group axioms for the binary operation hold for that ``group table''.
+    We can see that the identity and inverse axioms hold, but associativity is trickier to see.
+    However, the group \(\Z / 2\Z \times \Z / 2\Z\) is isomorphic to this table,
+    and we can deduce associativity from there.)
+\end{solution}
+
+
 
 
 \end{document}
