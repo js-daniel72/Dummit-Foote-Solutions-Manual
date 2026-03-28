@@ -501,5 +501,295 @@ Skipped problems: 1 \(\sim\) 9, 11 \(\sim\) 14
 
 
 
+\newpage
+\subsection{Dihedral Groups} 
+
+Problems 17, 18 must be done
+
+Recall that the elements of \(D_{2n}\) are precisely \(1, r, r^2, \cdots, r^{n-1}, s, sr, sr^2, \cdots, sr^{n-1}\).
+
+\begin{solution}{1}
+    \begin{subparts}
+        \item We calculate each element of \(D_6\).
+        \begin{itemize}
+            \item \(1\) has order 1.
+            \item \(r\) has order 3, illustrated in \(r \to r^2 \to 1_{=r^3}\).
+            \item \(r^2\) has order 3, illustrated in \(r^2 \to r_{=r^4} \to 1_{=r^3}\).
+            \item \(s\) has order 2, illustrated in \(s \to 1_{=s^2}\).
+            \item \(sr\) has order 2, illustrated in \(sr \to 1_{=srsr=s^2}\).
+            \item \(sr^2\) has order 2, illustrated in \(sr^2 \to 1_{=sr^2sr^2=s^2}\).
+        \end{itemize}
+        \item We calculate each element of \(D_8\).
+        \begin{itemize}
+            \item \(1\) has order 1.
+            \item \(r\) has order 4, illustrated in \(r \to r^2 \to r^3 \to 1_{=r^4}\).
+            \item \(r^2\) has order 2, illustrated in \(r^2 \to 1_{=r^4}\).
+            \item \(r^3\) has order 4, illustrated in \(r^3 \to r^2_{=r^6} \to r_{=r^5} \to 1_{=r^4}\).
+            \item \(s\) has order 2, illustrated in \(s \to 1_{=s^2}\).
+            \item \(sr\) has order 2, illustrated in \(sr \to 1_{=srsr=s^2}\).
+            \item \(sr^2\) has order 2, illustrated in \(sr^2 \to 1_{=sr^2sr^2=s^2}\).
+            \item \(sr^3\) has order 2, illustrated in \(sr^3 \to 1_{=sr^3sr^3=s^2}\).
+        \end{itemize}
+        \item We calculate each element of \(D_{10}\).
+        \begin{itemize}
+            \item \(1\) has order 1.
+            \item \(r\) has order 5, illustrated in \(r \to r^2 \to r^3 \to r^4 \to 1_{=r^5}\).
+            \item \(r^2\) has order 5, illustrated in \(r^2 \to r^4 \to r_{= r^6} \to r^3 \to 1_{=r^5}\).
+            \item \(r^3\) has order 5, illustrated in \(r^3 \to r_{=r^6} \to r^4 \to r^2_{=r^7} \to 1_{=r^5}\).
+            \item \(r^4\) has order 5, illustrated in \(r^4 \to r^3_{=r^8} \to r^2_{=r^7} \to r_{=r^6} \to 1_{=r^5}\).
+            \item \(s\) has order 2, illustrated in \(s \to 1_{=s^2}\).
+            \item \(sr\) has order 2, illustrated in \(sr \to 1_{=srsr=s^2}\).
+            \item \(sr^2\) has order 2, illustrated in \(sr^2 \to 1_{=sr^2sr^2=s^2}\).
+            \item \(sr^3\) has order 2, illustrated in \(sr^3 \to 1_{=sr^3sr^3=s^2}\).
+            \item \(sr^4\) has order 2, illustrated in \(sr^4 \to 1_{=sr^4sr^4=s^2}\).
+        \end{itemize}
+    \end{subparts}
+\end{solution}
+
+\begin{solution}{2}
+     If \(x\) is an element of \(D_{2n}\) not a power of \(r\),
+     then it must be of the form \(sr^i\) where \(0 \le i < n\).
+     Then, \(rx = rsr^i = sr^{-1}r^i = sr^ir^{-1} = xr^{-1}\). \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{3}
+    If \(x\) is an element of \(D_{2n}\) not a power of \(r\),
+    then it must be of the form \(sr^i\) where \(0 \leq i < n\).
+    Then, since \(r^is = s(r^{-1})^i\), we have \(x^2 = sr^isr^i = s^2 = 1\).
+    (\(r^is = s(r^{-1})^i\) technically has to be proven inductively, but we will not do this here.)
+    Since \(x^1 \neq 1\), we conclude that \(x\) has order 2.
+    
+    Now, any element of \(D_{2n}\) can be written as a product of \(s\) and \(sr\),
+    since \(r = s \cdot sr\) and every element can be written as a product of \(s\) and \(r\).
+    Therefore \(\{s, sr\}\) is a generator of \(D_{2n}\).
+    \(s\) has order 2 as we already know, and \(sr\) has order 2 by our first part.
+    \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{4}
+    \(z\) is an element of order 2 since \(z \neq 1\) and \(z^2 = r^{2k} = r^n = 1\).
+    To see that \(z\) commutes with every element of \(D_{2n}\),
+    fix some \(d \in D_{2n}\), and our goal is to show that \(zd = dz\). Consider the two cases:
+    \begin{enumerate}[label=\roman*.]
+        \item \(d\) is a power of \(r\).
+        
+        Then, \(d = r^l\) for some \(l \in \Z\), and so
+              \[
+              \begin{aligned}
+                  zd &= r^kr^l &= r^{k+l}\\
+                     &         &= r^{l+k}& &\text{ (because of commutativity in \(\Z\))}\\
+                     &         &= r^lr^k &= dz,
+              \end{aligned}
+              \]
+              and therefore \(zd = dz\).
+        \item \(d\) is not a power of \(r\).
+        
+        Then, by Exercise 1.2.2, we have \(rd = dr^{-1}\).
+              Then, we see that
+            \[
+            \begin{aligned}
+                zd &= r^k d \\
+                &= r^{k-1} d r^{-1} \\
+                &= r^{k-2} d r^{-2} \\
+                &\;\;\vdots \\
+                &= d r^{-k} \\
+                &=dz^{-1}.
+            \end{aligned}
+            \]
+            Here, since \(z\) is an element of order 2 we have \(z^2 = 1\), so that \(z = z^{-1}\).
+            Therefore, we can conclude that \(zd = dz\).
+    \end{enumerate}
+    For every case of \(d\), we have \(zd = dz\), and therefore \(z\) commutes with every element of \(D_{2n}\).
+
+    Finally, we must show that \(z\) is the \textit{only} nonidentity that commutes with every element of \(D_{2n}\).
+    To do this, suppose \(x\) is some element of \(D_{2n}\) that commutes with every element.
+    We will show that then \(x\) must be either \(1\) or \(r^k\).
+    There are two possible cases for the form of \(x\).
+
+    \begin{enumerate}[label=\roman*.]
+        \item \(x\) is a power of \(r\), so \(x = r^i\) where \(i \in \{0, 1, \cdots, n-1\}\).
+        
+        From the logic of part ii above,
+        if \(d\) is not a power of \(r\) then we must have \(xd = dx^{-1}\).
+        However, since \(x\) commutes with every element of \(D_{2n}\),
+        it also commuts with \(d\) in particular so that \(xd = dx\).
+        Therefore we have \(dx^{-1} = dx\) and so \(x^{-1} = x\).
+
+        By Exercise 1.1.33, since \(r\) is of even order (= \(2k\)) in \(D_{2n}\),
+        it must be that \(x^{-1} = x\) if and only if \(x = 1\) or \(x = r^k\).
+        Therefore, if \(x\) is a power of \(r\), then
+        \(x\) commutes with every element of \(D_{2n}\) if and only if \(x=1\) or \(x = r^k\).
+
+        \item \(x\) is not a power of \(r\), so \(x = sr^i\) where \(i \in \{0, 1, \cdots, n-1\}\).
+        
+        Then, we must have \(xr = rx\) in particular.
+        Here, we observe that
+        \(xr = sr^ir = sr^{i+1}\) and \(rx = rsr^i = sr^{-1}r^i = sr^{i-1}\), and therefore
+        \(sr^{i+1} = sr^{i-1}\).
+        So, we must have \(r^{i+1} = r^{i-1}\). But this implies that \(r^2 = 1\), which says that 
+        \(r\) has order at most 2. This contradicts the premise that \(n \ge 4\).
+        Therefore, in this case there is no element that commutes with every element in \(D_{2n}\).
+    \end{enumerate}
+    This concludes the proof. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{5}
+    The solution is very similar to the latter half of the solution of Exercise 1.2.4.
+    
+    We must show that if \(x\) is some element of \(D_{2n}\) that commutes with every element,
+    then it must be that \(x = 1\).
+    There are two possible cases for the form of \(x\).
+
+    \begin{enumerate}[label=\roman*.]
+        \item \(x\) is a power of \(r\), so \(x = r^i\) where \(i \in \{0, 1, \cdots, n-1\}\).
+        
+        From the logic of the first part ii in Exercise 1.2.4, % The wording can be better
+        if \(d\) is not a power of \(r\) then we must have \(xd = dx^{-1}\).
+        However, since \(x\) commutes with every element of \(D_{2n}\),
+        it also commutes with \(d\) in particular so that \(xd = dx\).
+        Therefore we have \(dx^{-1} = dx\) and so \(x^{-1} = x\).
+
+        By Exercise 1.1.33, since \(r\) is of odd order in \(D_{2n}\),
+        it must be that \(x^{-1} = x\) if and only if \(x = 1\).
+        Therefore, if \(x\) is a power of \(r\), then
+        \(x\) commutes with every element of \(D_{2n}\) if and only if \(x=1\).
+
+        \item \(x\) is not a power of \(r\), so \(x = sr^i\) where \(i \in \{0, 1, \cdots, n-1\}\).
+        
+        Then, we must have \(xr = rx\) in particular.
+        Here, we observe that
+        \(xr = sr^ir = sr^{i+1}\) and \(rx = rsr^i = sr^{-1}r^i = sr^{i-1}\), and therefore
+        \(sr^{i+1} = sr^{i-1}\).
+        So, we must have \(r^{i+1} = r^{i-1}\). But this implies that \(r^2 = 1\), which says that 
+        \(r\) has order at most 2. This contradicts the premise that \(n \ge 3\).
+        Therefore, in this case there is no element that commutes with every element in \(D_{2n}\).
+    \end{enumerate}
+    This concludes the proof. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{6}
+    Let \(x\) and \(y\) be elements of order 2 in \(G\).
+    We essentially only need to prove that \(xyx = xy^{-1}x^{-1}\),
+    which is definitely true since \(x^2 = 1\) and \(y^2 = 1\) so that \(x = x^{-1}\) and \(y = y^{-1}\). \(\blacksquare\)
+
+    (The book seems to want to say that
+    there is a parallel between \(x \leftrightarrow s\) and \(y \leftrightarrow sr\),
+    similar to what we've seen in Exercise 1.2.3.
+    Then we have \(t = xy \leftrightarrow ssr = r\),
+    so \(x\) and \(t\) satisfy the same relations as \(s\) and \(r\) do in \(D_{2n}\).)
+
+\end{solution}
+
+\begin{solution}{7}
+    Recall that
+    \(D_{2n}=\langle r,s \mid r^n=s^2=1,\ rs=sr^{-1}\rangle\) and 
+    \(C_{2n}=\langle a,b \mid a^2=b^2=(ab)^n=1\rangle\).
+    We show that these are two presentations of the same group by changing generators.
+
+    First start with the presentation of \(D_{2n}\), and define new generators
+    \(a:=s\) and \(b:=sr.\)
+    Then \(s=a\), and also
+    \(r=ssr=ab.\)
+    Now compute:
+    \begin{itemize}
+        \item \(a^2=s^2=1\),
+        \item \(b^2=(sr)^2=srsr=ssr^{-1}r=1\),
+        \item \((ab)^n=(s\cdot sr)^n=r^n=1\).
+    \end{itemize}
+    Thus, in terms of the generators \(a,b\), the defining relations for \(D_{2n}\) become
+    \(a^2=b^2=(ab)^n=1.\)
+
+    Conversely, start with the presentation of \(C_{2n}\), and define \(s:=a\) and \(r:=ab.\)
+    Then \(a=s\), and \(b=a(ab)=sr.\)
+    Now compute:
+    \begin{itemize}
+        \item \(r^n=(ab)^n=1\),
+        \item \(s^2=a^2=1\),
+        \item \(rs=(ab)a=aba=a(ba)=a(ab)^{-1}=sr^{-1}\),
+        since \(a^2=b^2=1\), so \(ba=(ab)^{-1}\).
+    \end{itemize}
+    Thus, in terms of the generators \(r,s\), the defining relations for \(C_{2n}\) become
+    \(r^n=s^2=1\) and \(rs=sr^{-1}.\)
+
+    Therefore each presentation is obtained from the other by a change of generators, so
+    \(C_{2n}\) and \(D_{2n}\) are two presentations of the same group. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{8}
+    We determine the order of the subgroup \(\langle r \rangle = \{r^k \mid k \in \mathbb{Z}\}\).
+    Since \(|r| = n\) in \(D_{2n}\), the elements \( 1, r, r^2, \cdots, r^{n-1}\) are all distinct,
+    and \(r^n = 1\). Hence every power of \(r\) is equal to one of
+    \( 1, r, r^2, \cdots, r^{n-1}\), and these are exactly the elements of \(\langle r \rangle\).
+    Therefore, \( \lvert \langle r \rangle \rvert = n\). \(\blacksquare\)
+\end{solution}
+
+\vspace{1em}
+
+For exercises 9 through 13, we follow the logic spelled out below.
+\vspace{0.5em}
+
+For each Platonic solid, fix an ordered pair \((u_1,u_2)\) of adjacent vertices.
+A rigid motion is completely determined by the image of \((u_1,u_2)\).
+Indeed, once the image of one vertex and of an adjacent vertex is fixed,
+the rest of the solid is forced.
+
+Now suppose the solid has \(v\) vertices, and each vertex is adjacent to \(e\) vertices.
+The vertex \(u_1\) can be sent to any of the \(v\) vertices.
+After that, \(u_2\) can be sent to any of the \(e\) vertices adjacent to the image of \(u_1\).
+Since the solid is regular, every such ordered adjacent pair is realized by a rigid motion.
+Therefore, the number of rigid motions is \(ve\).
+
+\begin{solution}{9}
+    A tetrahedron has 4 vertices and 3 edges per vertex. Therefore, \(|G| = 4 \times 3 = 12\). \(\blacksquare\)
+\end{solution}
+\vspace{-1.5em}
+
+\begin{solution}{10}
+    A cube has 8 vertices and 3 edges per vertex. Therefore, \(|G| = 8 \times 3 = 24\). \(\blacksquare\)
+\end{solution}
+\vspace{-1.5em}
+
+\begin{solution}{11}
+    An octahedron has 6 vertices and 4 edges per vertex. Therefore, \(|G| = 6 \times 4 = 24\). \(\blacksquare\)
+\end{solution}
+\vspace{-1.5em}
+
+\begin{solution}{12}
+    A dodecahedron has 20 vertices and 3 edges per vertex. Therefore, \(|G| = 20 \times 3 = 60\). \(\blacksquare\)
+\end{solution}
+\vspace{-1.5em}
+
+\begin{solution}{13}
+    An icosahedron has 12 vertices and 5 edges per vertex. Therefore, \(|G| = 12 \times 5 = 60\). \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{14}
+    As mentioned in the text, \(\mathbb Z = \langle 1\rangle\) works, since any integer can be written as a sum of a finite number of 1's or -1's. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{15}
+    \(\mathbb Z / n\mathbb Z = \langle 1 \mid n\cdot 1 = 0\rangle\) is a possible presentation.
+
+    To justify that this presentation works, observe first that
+    every element of \(\mathbb Z / n\mathbb Z\) can be written as \(k\cdot 1\)
+    for some \(k \in \mathbb Z\), so \(1\) generates the group.
+    Also, in \(\mathbb Z / n\mathbb Z\) we have \(n\cdot 1 = 0\),
+    since \(n \equiv 0 \pmod n\).
+
+    Finally, this is the only relation needed:
+    whenever \(a\cdot 1 = b\cdot 1\), we have
+    \((a-b)\cdot 1 = 0\),
+    which in \(\mathbb Z / n\mathbb Z\) means exactly that
+    \(a-b\) is divisible by \(n\).
+    Therefore two integer multiples of \(1\) are equal precisely when
+    they become equal using the relation \(n\cdot 1=0\).
+    Hence \(\langle 1 \mid n\cdot 1 = 0\rangle\) is indeed a presentation of
+    \(\mathbb Z / n\mathbb Z\). \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{16}
+    This follows immediately from Exercise 1.2.7.
+\end{solution}
+
 
 \end{document}
