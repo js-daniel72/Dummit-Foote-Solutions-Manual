@@ -13,7 +13,7 @@
 }
 \usepackage{enumitem}
 \usepackage{ifthen} 
-\usepackage{needspace} % <--- ADDED: Package to require a specific amount of space
+\usepackage{needspace} 
 \usepackage{tabularray}
 
 \newcommand{\N}{\mathbb{N}}
@@ -23,6 +23,10 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\F}{\mathbb{F}}
 
+% --- NEW: Custom Reference Command ---
+% Links to the auto-generated label and prints "Exercise l.m.n"
+\newcommand{\refex}[1]{\hyperref[ex:#1]{Exercise #1}}
+
 % --- Custom Streamlined Solution Environments ---
 
 \newcounter{probnum} 
@@ -31,11 +35,13 @@
 % 1. Standard solution environment
 \newenvironment{solution}[1]{%
     \vspace{1em}% 
-    % --- ADDED: Checks if there is enough space. If not, forces a new page. ---
     \needspace{10\baselineskip}% 
     \ifthenelse{\equal{#1}{}}%
         {\stepcounter{probnum}}% 
         {\setcounter{probnum}{#1}}% 
+    % --- ADDED: Hyperref anchor and automatic label ---
+    \phantomsection
+    \label{ex:\arabic{section}.\arabic{subsection}.\arabic{probnum}}%
     \begin{list}{}{%
         \setlength{\leftmargin}{2em}% 
         \setlength{\labelwidth}{1.5em}% 
@@ -64,18 +70,19 @@
 % 3. Dedicated environment for solutions 
 \newenvironment{solutionparts}[1]{%
     \vspace{1em}%
-    % --- ADDED: Checks if there is enough space. If not, forces a new page. ---
     \needspace{10\baselineskip}% 
     \ifthenelse{\equal{#1}{}}%
         {\stepcounter{probnum}}%
         {\setcounter{probnum}{#1}}%
+    % --- ADDED: Hyperref anchor and automatic label ---
+    \phantomsection
+    \label{ex:\arabic{section}.\arabic{subsection}.\arabic{probnum}}%
     \noindent\makebox[1.5em][r]{\textbf{\theprobnum.}}\vspace*{-\baselineskip}%
     \begin{subparts}[leftmargin=3.3em, labelwidth=0.8em, labelsep=0.5em, align=left]
 }{%
     \end{subparts}%
     \par\vspace{1em}%
 }
-
 \begin{document}
 
 % ==========================================
@@ -491,7 +498,7 @@ Skipped problems: 1 \(\sim\) 9, 11 \(\sim\) 14
     \(c\)     & \(c\) & \(b\) & \(a\) & \(1\)  
     \end{tblr}
     \end{center}
-    This matrix is symmetric, so by Exercise 1.1.10 \(G\) must be abelian. \(\blacksquare\)
+    This matrix is symmetric, so by \refex{1.1.10} \(G\) must be abelian. \(\blacksquare\)
 
     (Note: we haven't proved that the group axioms for the binary operation hold for that ``group table''.
     We can see that the identity and inverse axioms hold, but associativity is trickier to see.
@@ -504,9 +511,9 @@ Skipped problems: 1 \(\sim\) 9, 11 \(\sim\) 14
 \newpage
 \subsection{Dihedral Groups} 
 
-Problems 17, 18 must be done
+\noindent Skipped problems: 17, 18
 
-Recall that the elements of \(D_{2n}\) are precisely \(1, r, r^2, \cdots, r^{n-1}, s, sr, sr^2, \cdots, sr^{n-1}\).
+\noindent Recall that the elements of \(D_{2n}\) are precisely \(1, r, r^2, \cdots, r^{n-1}, s, sr, sr^2, \cdots, sr^{n-1}\).
 
 \begin{solution}{1}
     \begin{subparts}
@@ -584,7 +591,7 @@ Recall that the elements of \(D_{2n}\) are precisely \(1, r, r^2, \cdots, r^{n-1
               and therefore \(zd = dz\).
         \item \(d\) is not a power of \(r\).
         
-        Then, by Exercise 1.2.2, we have \(rd = dr^{-1}\).
+        Then, by \refex{1.2.2}, we have \(rd = dr^{-1}\).
               Then, we see that
             \[
             \begin{aligned}
@@ -615,7 +622,7 @@ Recall that the elements of \(D_{2n}\) are precisely \(1, r, r^2, \cdots, r^{n-1
         it also commuts with \(d\) in particular so that \(xd = dx\).
         Therefore we have \(dx^{-1} = dx\) and so \(x^{-1} = x\).
 
-        By Exercise 1.1.33, since \(r\) is of even order (= \(2k\)) in \(D_{2n}\),
+        By \refex{1.1.33}, since \(r\) is of even order (= \(2k\)) in \(D_{2n}\),
         it must be that \(x^{-1} = x\) if and only if \(x = 1\) or \(x = r^k\).
         Therefore, if \(x\) is a power of \(r\), then
         \(x\) commutes with every element of \(D_{2n}\) if and only if \(x=1\) or \(x = r^k\).
@@ -791,5 +798,282 @@ Therefore, the number of rigid motions is \(ve\).
     This follows immediately from Exercise 1.2.7.
 \end{solution}
 
+\newpage
+\subsection{Symmetric Groups}
+\noindent Skipped problems: 12\(\sim\)14, 16\(\sim\)20
+\begin{solution}{1} 
+\[
+\begin{aligned}
+    \sigma &= (1\ 3\ 5)\,(2\ 4), &
+    \tau &= (1\ 5)\,(2\ 3), \\
+    \sigma^2 &= (1\ 5\ 3), &
+    \sigma\tau &= (2\ 5\ 3\ 4), \\
+    \tau\sigma &= (1\ 2\ 4\ 3), &
+    \tau^2\sigma &= (1\ 3\ 5)\,(2\ 4).
+\end{aligned}
+\]
+\end{solution}
 
+\begin{solution}{2}
+\[
+\begin{aligned}
+    \sigma &= (1\ 13\ 5\ 10)\,(3\ 15\ 8)\,(4\ 14\ 11\ 7\ 12\ 9), \\
+    \tau &= (1\ 14)\,(2\ 9\ 15\ 13\ 4)\,(3\ 10)\,(5\ 12\ 7)\,(8\ 11), \\
+    \sigma^2 &= (1\ 5)\,(3\ 8\ 15)\,(4\ 11\ 12)\,(7\ 9\ 14)\,(10\ 13), \\
+    \sigma\tau &= (1\ 11\ 3)\,(2\ 4)\,(5\ 9\ 8\ 7\ 10\ 15)\,(13\ 14), \\
+    \tau\sigma &= (1\ 4)\,(2\ 9)\,(3\ 13\ 12\ 15\ 11\ 5)\,(8\ 10\ 14), \\
+    \tau^2\sigma &= (1\ 2\ 15\ 8\ 3\ 4\ 14\ 11\ 12\ 13\ 7\ 5\ 10).
+\end{aligned}
+\]
+\end{solution}
+
+\begin{solution}{3}
+    As suggested in the book (and proved in \refex{1.3.15}), the order of a permutation
+    is the least common multiple of the lengths of the cycles in its cycle decomposition.
+    \begin{center}
+    \begin{tblr}{
+        rows = {1cm, rowsep = 2pt},
+        columns = {1cm, colsep = 2pt},
+        cells = {m, c},
+        hlines, vlines,
+        hline{2} = {1.5pt},
+        vline{2} = {1.5pt}
+    }
+                & \(\sigma\) & \(\tau\) & \(\sigma^2\) & \(\sigma\tau\) & \(\tau\sigma\) & \(\tau^2\sigma\) \\
+    \textbf{1.} & 6          & 2        & 3            & 4              & 4              & 6                \\
+    \textbf{2.} & 12         & 30       & 6            & 6              & 6              & 13               \\
+    \end{tblr}
+    \end{center}
+\end{solution}
+
+\begin{solution}{4}
+    We use two facts.
+    
+    First, every permutation can be written uniquely as a product of disjoint cycles,
+    up to reordering the cycles and cyclically permuting the entries within each cycle.
+    
+    Second, the order of a permutation is the least common multiple of the lengths
+    of the disjoint cycles in its cycle decomposition
+    (by Exercise 1.3.15).
+
+    So the strategy is to
+    list all possible disjoint-cycle decompositions in \(S_3\) and \(S_4\),
+    and then compute the order from the cycle lengths.
+
+    \begin{subparts}
+        \item In \(S_3\), every element is one of the following:
+        \begin{itemize}
+            \item the identity \(\operatorname{id},\)
+            which has order \(1\);
+
+            \item a transposition: \((1\ 2),\ (1\ 3),\ (2\ 3),\)
+            each of which has order \(2\);
+
+            \item a \(3\)-cycle: \( (1\ 2\ 3),\ (1\ 3\ 2),\)
+            each of which has order \(3\).
+        \end{itemize}
+        
+        \newpage
+
+        \item In \(S_4\), every element is one of the following forms:
+        \begin{itemize}
+            \item the identity \(\operatorname{id}\), which has order \(1\);
+
+            \item a transposition:
+            \[
+                (1\ 2),\ (1\ 3),\ (1\ 4),\ (2\ 3),\ (2\ 4),\ (3\ 4),
+            \]
+            each of which has order \(2\);
+
+            \item a \(3\)-cycle:
+            \[
+                \begin{gathered}
+                (1\ 2\ 3),\ (1\ 3\ 2),\ (1\ 2\ 4),\ (1\ 4\ 2),\\
+                (1\ 3\ 4),\ (1\ 4\ 3),\ (2\ 3\ 4),\ (2\ 4\ 3),
+                \end{gathered}
+            \]
+            each of which has order \(3\);
+
+            \item a product of two disjoint transpositions:
+            \[
+                (1\ 2)(3\ 4),\ (1\ 3)(2\ 4),\ (1\ 4)(2\ 3),
+            \]
+            each of which has order \(2\);
+
+            \item a \(4\)-cycle:
+            \[
+                \begin{gathered}
+                (1\ 2\ 3\ 4),\ (1\ 2\ 4\ 3),\ (1\ 3\ 2\ 4),\\
+                (1\ 4\ 2\ 3),\ (1\ 3\ 4\ 2),\ (1\ 4\ 3\ 2),
+                \end{gathered}
+            \]
+            each of which has order \(4\).
+        \end{itemize}
+
+        For a sanity check, we see that these are indeed all of the elements of \(S_4\),
+        since the total number listed is
+        \[
+            1+6+8+3+6=24=4!=|S_4|.
+        \]
+    \end{subparts}
+\end{solution}
+
+\begin{solution}{5}
+    Since the cycles are pairwise disjoint, this is a cycle decomposition of some permutation,
+    and therefore the order of this permutation must be the lcm of the lengths of the cycles.
+    (Exercise 1.3.15)
+    So, the order of this permutation is
+    \(\operatorname{lcm}(5, 2, 3, 2) = 30\). \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{6}
+    This is done in Exercise 1.3.4(b).
+\end{solution}
+
+\begin{solution}{7}
+    This is done in Exercise 1.3.4(b).
+\end{solution}
+
+\begin{solution}{8}
+    For a positive integer \(n\), let \(\sigma_n\) be the permutation in \(S_\Omega\) such that
+    \(\sigma_n(n) = 1, \sigma_n(1) = n\), and \(\sigma_n(i) = i\) for all other \(i\).
+    Then we see that if \(m \neq n\), then \(\sigma_n \neq \sigma_m\), which shows that \(S_\Omega\) has at least
+    \(|\Z^+|\)-many elements.
+    \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{9}
+    We determine in each case, for which integers \(i\) the power is again a single cycle of the same length.
+    Since \(\sigma_0^t=\operatorname{id}\) for a \(t\)-cycle \(\sigma_0\), it suffices to consider exponents modulo \(t\).
+    Also, \(\sigma_0^{t-i}=(\sigma_0^i)^{-1}\), so \(\sigma_0^{t-i}\) has the same cycle lengths as \(\sigma_0^i\).
+    Thus it is enough to compute only the first half of the powers.
+
+    \begin{subparts}
+        \item Let
+        \[
+            \sigma=(1\ 2\ 3\ 4\ 5\ 6\ 7\ 8\ 9\ 10\ 11\ 12).
+        \]
+        Its first few powers are
+        \[
+        \begin{aligned}
+            \sigma^2 &= (1\ 3\ 5\ 7\ 9\ 11)(2\ 4\ 6\ 8\ 10\ 12),\\
+            \sigma^3 &= (1\ 4\ 7\ 10)(2\ 5\ 8\ 11)(3\ 6\ 9\ 12),\\
+            \sigma^4 &= (1\ 5\ 9)(2\ 6\ 10)(3\ 7\ 11)(4\ 8\ 12),\\
+            \sigma^5 &= (1\ 6\ 11\ 4\ 9\ 2\ 7\ 12\ 5\ 10\ 3\ 8),\\
+            \sigma^6 &= (1\ 7)(2\ 8)(3\ 9)(4\ 10)(5\ 11)(6\ 12).
+        \end{aligned}
+        \]
+        From these, and using \(\sigma^{12-i}=(\sigma^i)^{-1}\), we see that
+        \(\sigma^i\) is a \(12\)-cycle precisely for
+        \[
+            i \equiv 1,5,7,11 \pmod{12}.
+        \]
+
+        \item Let
+        \[
+            \tau=(1\ 2\ 3\ 4\ 5\ 6\ 7\ 8).
+        \]
+        Then
+        \[
+        \begin{aligned}
+            \tau^2 &= (1\ 3\ 5\ 7)(2\ 4\ 6\ 8),\\
+            \tau^3 &= (1\ 4\ 7\ 2\ 5\ 8\ 3\ 6),\\
+            \tau^4 &= (1\ 5)(2\ 6)(3\ 7)(4\ 8).
+        \end{aligned}
+        \]
+        Hence \(\tau^i\) is an \(8\)-cycle precisely for
+        \[
+            i \equiv 1,3,5,7 \pmod{8}.
+        \]
+
+        \item Let
+        \[
+            \omega=(1\ 2\ 3\ 4\ 5\ 6\ 7\ 8\ 9\ 10\ 11\ 12\ 13\ 14).
+        \]
+        Its first several powers are
+        \[
+        \begin{aligned}
+            \omega^2 &= (1\ 3\ 5\ 7\ 9\ 11\ 13)(2\ 4\ 6\ 8\ 10\ 12\ 14),\\
+            \omega^3 &= (1\ 4\ 7\ 10\ 13\ 2\ 5\ 8\ 11\ 14\ 3\ 6\ 9\ 12),\\
+            \omega^4 &= (1\ 5\ 9\ 13\ 3\ 7\ 11)(2\ 6\ 10\ 14\ 4\ 8\ 12),\\
+            \omega^5 &= (1\ 6\ 11\ 2\ 7\ 12\ 3\ 8\ 13\ 4\ 9\ 14\ 5\ 10),\\
+            \omega^6 &= (1\ 7\ 13\ 5\ 11\ 3\ 9)(2\ 8\ 14\ 6\ 12\ 4\ 10),\\
+            \omega^7 &= (1\ 8)(2\ 9)(3\ 10)(4\ 11)(5\ 12)(6\ 13)(7\ 14).
+        \end{aligned}
+        \]
+        Therefore \(\omega^i\) is a \(14\)-cycle precisely for
+        \[
+            i \equiv 1,3,5,9,11,13 \pmod{14}.
+        \]
+    \end{subparts}
+
+    We can see a pattern:
+    if \(\sigma_0\) is a \(t\)-cycle, then \(\sigma_0^i\) is again a \(t\)-cycle
+    exactly when \(i\) is relatively prime to \(t\).
+    This will be proved in Exercise 1.3.11.
+\end{solution}
+
+\begin{solution}{10}
+    If \(\sigma = (a_1 \ a_2 \ \cdots \ a_m)\), then we have
+    \[
+    \begin{aligned}
+        \sigma(a_k)&=a_{k+1} & \text {for } k=1,\dots,m-1,\text{ and}\\
+        \sigma(a_m)&= a_1.
+    \end{aligned}
+    \]
+    This can also be written as \(\sigma(a_k) = a_{k+1 \pmod{m}}\)
+    for \(k = 1, \cdots, m\), letting \(a_0 = a_m\).
+    Then, it is easy to see by induction that \(\sigma^i(a_k) = a_{k+i \pmod{m}}\),
+    though we won't spell out the details.
+
+    Observe that \(\sigma^m = \operatorname{id}\),
+    since for any \(k\) we have \(\sigma^m(a_k) = a_{k+m \pmod{m}} = a_{k \pmod{m}}\),
+    and since \(\sigma\) will leave all other elements fixed.
+    Also, we see that for \(i = 1, \cdots, m-1\), we have \(\sigma^i(a_1) = a_{1+i}\).
+    This says that \(\sigma^i\) is distinct for \(i = 1, \cdots, m-1\).
+    From this we can conclude that the order of \(\sigma\) is \(m\). \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{11}
+    By \refex{1.3.10}, we know that \(\sigma^i(k) = k+i \pmod m\).
+    Then, we see that \(\sigma^i\) contains \((1 \ 1+i \ 1+2i \ \cdots)\).
+    This (sub-)cycle will have as length \(n\) for the smallest \(n \in \Z^+\)
+    satisfying \(1 + ni = 1 \pmod m\), or simply \(ni = 0 \pmod m\).
+    
+    Now, if \(m\) and \(i\) are relatively prime, we see that the smallest \(n \in \Z^+\)
+    satisfying \(ni = 0 \pmod m\) is \(n = m\). So, this cycle is the only cycle
+    present in \(\sigma^i\), proving that it is an \(m\)-cycle.
+
+    Conversely, if \(\sigma^i\) is an \(m\)-cycle, it implies that \(ki \neq 0 \pmod m\)
+    for \(k = 1, 2, \cdots, m-1\), and \(ki = 0 \pmod m\).
+    From here, we will conclude that \(i\) and \(m\) are relatively prime;
+    Suppose for the sake of contradiction that \(\gcd(i, m) = d > 1\),
+    so that \(i = dj\) and \(m = dl\) for some \(j < i\) and \(l < m\).
+    Then \(il = jdl = jm\) so that \(il = 0 \pmod m\).
+    But here, since \(l < m\), \(il = 0 \pmod m\) contradicts that \(\sigma^i\) is an \(m\)-cycle,
+    and so \(i\) and \(m\) are relatively prime.
+    \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{15}
+    Pick any element \(\sigma\) in \(S_n\).
+    Then the cycle decomposition of \(\sigma\)
+    is written in disjoint cycles. Let us write \(\sigma = c_1c_2 \cdots c_k\)
+    and understand it as a cycle decomposition of \(\sigma\).
+    Then, each \(c_i\) is a cycle, and they are pairwise disjoint.
+
+    Since dinjoint cycles commute, by \refex{1.1.24}, we see that \(\sigma^m = c_1^m c_2^m \cdots c_k^m\)
+    for any positive integer \(m\). Also, by \refex{1.3.10} we see that for any cycle \(c_i\),
+    \(c_i^m\) is the identity if and only if \(m\) is a multiple of the length of the cycle.
+
+    Now, for \(\sigma^m\) to be the identity, each of \(c_i^m\) must be the identity.
+    (This is because the cycles are disjoint,
+    and therefore the value of some number \(n\) under \(\sigma\)
+    is only determined by at most one \(c_i\).)
+    Therefore, the smallest \(m\) that makes \(\sigma^m\) the identity
+    must be the least common multiple of the lengths of \(c_i\).
+    This completes our agrument. \(\blacksquare\)
+\end{solution}
+
+\newpage
 \end{document}
