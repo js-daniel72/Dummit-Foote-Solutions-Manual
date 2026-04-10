@@ -1696,4 +1696,240 @@ Skipped problems: 2, 3, 5, 6, 8\(\sim\)10, 12, 20\(\sim\)23
 % ==========================================
 %                 Section 2
 % ==========================================
+\section{Subgroups}
+\subsection{Definition and Examples}
+Skipped problems: 1\(\sim\)3, 16, 17
+
+\begin{solution}{4}
+    Let \(G = \Z\) and \(H = \Z^+ = \{g \in G \mid g > 0\}\) under addition.
+    Then, for any \(g, h \in H\), we see that \(g>0\) and \(h>0\) so that \(g+h > 0\), and therefore \(g+h \in H\).
+    However, for any \(g \in H\), \(-g\) is not in \(H\). Therefore \(H\) is not a subgroup of \(G\). \(\blacksquare\)
+
+    (Idea when creating the counter-example: If \(H\) were also closed under inverses, then
+    by definition \(H\) would be a subgroup of \(G\).
+    So, think of a counter-example \(H\) that is not closed under inverses.)
+\end{solution}
+
+\begin{solution}{5}
+    This is immediate from the Lagrange's theorem, proved in \refex{1.7.19}. \(n-1\) does not divide \(n\) for \(n>2\).
+    \(\blacksquare\)
+
+    To give a more elementary solution, suppose \(G\) is a group with finite order \(n\),
+    and let \(H\) is a subgroup of \(G\) with order \(n-1\).
+    Then, \(G \smallsetminus H\) has only one element. Let \(g\) this element.
+    To get the conclusion, we will show that \(n=2\).
+
+    Fix an arbitrary element \(h \in H\).
+    We first see that \(gh \not \in H\). Indeed, if \(gh\) were in \(H\), then
+    \((gh)h^{-1} = g\) must also be in \(H\), contradicting that \(g\) is not in \(H\).
+    But now, since \(g\) is the unique element not in \(H\), it must be that \(gh = g\). This implies that \(h = 1\).
+    Since \(h \in H\) was arbitrarily chosen, it must be that \(H = \{1\}\), so that \(n=2\). This completes our argument.
+    \(\blacksquare\)
+
+\end{solution}
+
+\begin{solution}{6}
+    Let \(G\) be a group and \(H\) be the set of all elements in \(G\) of finite order.
+    Note that \(H\) is nonempty, since \(1 \in H\) in particular.
+    
+    If \(G\) is abelian, then to show \(H \le G\), pick two elements \(g, h \in H\),
+    and we will show that \(gh \in H\) and \(g^{-1} \in H\).
+    Recall that in any group, an element and its inverse has the same order (\refex{1.1.20}).
+    Using this fact, \(g \in H\) implies that \(g^{-1} \in H\).
+    Now, let \(|g| = n\) and \(|h| = m\), both of which are finite.
+    Then we see that \((gh)^{mn} = g^{nm}h^{nm} = (g^n)^m (h^m)^n = 1\), since \(G\) is abelian (\refex{1.1.24}).
+    Therefore the element \(gh\) has order at most \(mn\), so it has finite order. This implies that \(gh \in H\),
+    completing our argument.
+
+    If \(G\) is non-abelian, \(H\) may not be a subgroup of \(G\). An explicit counter-example would be
+    \(G = S_\Z,\) the symmetric group on the integer set. We will see that \(H\) is not a subgroup of \(G\)
+    by finding two elements of \(H\) of finite order, whose product does not exist in \(H\).
+    Define \(f, g: \Z \to \Z\) by
+    \[f(n) = -n \quad \text{and} \quad g(n) = 1-n.\]
+    Then \(f, g \in G\) since they are bijections. Also, we see that \(f^2 \, (= f \circ f)\) and \(g^2\) are identity functions,
+    so \(f\) and \(g\) both have order 2 in \(G\).
+
+    However, we see that \((gf)(n) = n+1\), so we see that \((gf)^k(n) = n+k\) for any \(k \in \Z^+\).
+    This shows that the element \(gf\) is not in \(H\).
+    Therefore, \(H\) is not closed under function composition,
+    proving that \(H\) is not a subgroup of \(G\). \(\blacksquare\)
+
+    (When trying to create a counter-example, note that for every counter-example \(G\) must be a group of infinite order.
+    If \(|G|\) is finite, every element has finite order so \(G = H\).)
+\end{solution}
+
+\begin{solution}{7}
+    We note that \(\Z \times (\Z / n\Z)\) is abelian
+    since both \(\Z\) and \(\Z / n\Z\) are. (\refex{1.1.29})
+    Therefore the torsion subgroup will indeed be a subgroup.
+    Now, we must find all elements \((a, \bar b) \in \Z \times (\Z / n\Z)\) with finite order.
+    Consider the following cases:
+    \begin{enumerate}
+        \item If \(a \neq 0\), then we see that
+        for any positive integer \(k\), we have \(k(a, \bar b) = (ka, \overline{kb})\).
+        Here, \(ka \neq 0\). Therefore, in this case the element will never be in the torsion group.
+        \item If \(a = 0\), then in particular we see that \(n(0, \bar b) = (0, \overline{nb}) = (0, \bar 0)\),
+        since \(\overline{nb} = \bar 0\) in \(\Z / n\Z\).
+        Therefore, \((0, \overline{b})\) has order at most \(n\), which is finite.
+    \end{enumerate}
+    From the observations, we can conclude that \[\{0\} \times (\Z / n\Z)\] is the
+    torsion subgroup of \(\Z \times (\Z / n\Z)\).
+    In addition, we can also observe that the set of all elements of infinite order, together with the identity, is
+    \[\left((\Z \smallsetminus \{0\}) \times (\Z / n\Z)\right) \cup \{(0, \bar 0)\}.\]
+    However, this is not a subgroup.
+    Indeed, \((1, \bar 1)\) and \((-1, \bar 0)\) are both in the set
+    but their sum \((0, \bar 1)\) is not in the set. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{8}
+    Let \(G\) be a group, and let \(H \le G\) and \(K \le G\).
+    We will prove that \(H \cup K\) is a subgroup if and only if \(H \subseteq K\) or \(K \subseteq H\).
+    
+    First, if \(H \subseteq K\), then \(H \cup K = K \le G\), 
+    and similarly if \(K \subseteq H\) then \(H \cup K = H \le G\).
+
+    Conversely, if \(H \cup K\) is a subgroup of \(G\), then suppose for the sake of contradiction that
+    \(H \not \subseteq K\) and \(K \not \subseteq H\).
+    Then, there exist elements \(h \in H \smallsetminus K\) and \(k \in K \smallsetminus H\).
+    Since \(H \cup K\) is assumed to be a subgroup of \(G\), we must have \(hk \in H \cup K\).
+    If \(hk \in H\) then we must have \(h^{-1}(hk) \in H\), since \(H\) is closed under group operations.
+    This implies that \(k \in H\), contradicting that \(k \in K \smallsetminus H\).
+    Similarly, if we assume \(hk \in K\), then it must be that \((hk)k^{-1} \in K\),
+    which implies \(h \in K\), a similar contradiction.
+    
+    This concludes that \(hk \not \in H \cup K\), contradicting that such \(H \cup K\) is a subgroup of \(G\).
+    Therefore, it must be that \(H \subseteq K\) or \(K \subseteq H\), as required. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{9}
+    We will use the subgroup criterion.
+    First, note that \(SL_n(F)\) is nonempty since
+    in particular \(I_n \in SL_n(F)\).
+    Now, suppose \(A, B \in SL_n(F)\).
+    Then, \(AB^{-1} \in GL_n(F)\), and
+    \(\det(AB^{-1}) = \det(A) \det(B)^{-1} = 1\),
+    and therefore \(AB^{-1} \in SL_n(F)\), as required. \(\blacksquare\)
+\end{solution}
+
+\begin{solutionparts}{10}
+    \item This is a direct consequence of part b of this exercise.
+    \item Let \(\mathcal A\) be an arbitrary nonempty collection of subgroups of \(G\).
+    We wish to prove that \(\displaystyle K = \bigcap_{H \in \mathcal A} H\) is a subgroup of \(G\).
+    We will use the subgroup criterion.
+    
+    First, note that \(K\) is nonempty, since for any \(H \in \mathcal A\) we must have \(1 \in H\).
+    Now, pick any two elements \(a, b \in K\). This means that \(a, b \in H\) for any \(H \in \mathcal A\).
+    So, we see that \(ab^{-1} \in H\) must hold for any \(H \in \mathcal A\),
+    so that \(ab^{-1} \in K\).
+    This completes our argument. \(\blacksquare\)
+\end{solutionparts}
+
+\begin{solution}{11}
+    Let \(A\) and \(B\) be groups. For each subproblem, we wish to prove \(H \le A \times B\).
+    We will use the subgroup criterion for all three.
+    \begin{subparts}
+        \item Let \(H = \{(a, 1) \mid a \in A\}\).
+        Then \(H\) is nonempty, since in particular \((1, 1) \in H\).
+        Also, for any \((a_1, 1), (a_2, 1) \in H\), we have
+        \[(a_1, 1)(a_2, 1)^{-1} = (a_1, 1)(a_2^{-1}, 1^{-1}) = (a_1a_2^{-1}, 1) \in H\]
+        since \(a_1a_2^{-1} \in A\).
+        Therefore, \(H \le A \times B.\) \(\blacksquare\)
+        
+        \item Let \(H = \{(1, b) \mid b \in B\}\).
+        Then \(H\) is nonempty, since in particular \((1, 1) \in H\).
+        Also, for any \((1, b_1), (1, b_2) \in H\), we have
+        \[(1, b_1)(1, b_2)^{-1} = (1, b_1)(1^{-1}, b_2^{-1}) = (1, b_1b_2^{-1}) \in H\]
+        since \(b_1b_2^{-1} \in B\).
+        Therefore, \(H \le A \times B.\) \(\blacksquare\)
+        
+        \item Assume \(B = A\), and let \(H = \{(a, a) \mid a \in A\}\).
+        Then \(H\) is nonempty, since in particular \((1, 1) \in H\).
+        Also, for any \((a_1, a_1), (a_2, a_2) \in H\), we have
+        \[(a_1, a_1)(a_2, a_2)^{-1} = (a_1, a_1)(a_2^{-1}, a_2^{-1}) = (a_1a_2^{-1}, a_1a_2^{-1}) \in H\]
+        since \(a_1a_2^{-1} \in A\).
+        Therefore, \(H \le A \times A.\) \(\blacksquare\)
+    \end{subparts}    
+\end{solution}
+
+\begin{solution}{12}
+    Let \(A\) be an abelian group. Fix some \(n \in \Z\).
+    For each subproblem, we wish to show that \(H \le A\).
+    To do this, we will use the subgroup criterion.
+    \begin{subparts}
+        \item Let \(H = \{a^n \mid a \in A\}\).
+        Then \(H\) is nonempty since in particular \(1^n = 1 \in H\).
+        Now, for any \(a_1^n, a_2^n \in H\), we have
+        \[a_1^n (a_2^n)^{-1} = a_1^n (a_2^{-1})^n = (a_1a_2^{-1})^n \in H\]
+        since \(a_1a_2^{-1} \in A\).
+        (The last equality holds since \(A\) is abelian; check \refex{1.1.24}.)
+        Therefore, \(H \le A\). \(\blacksquare\)
+
+        \item Let \(H = \{a \in A \mid a^n = 1\}\).
+        Then \(H\) is nonempty since in particular \(1^n = 1\), so that \(1 \in H\).
+        Now, pick any \(h, k \in H\). Then we have \(h^n = 1\) and \(k^n = 1\).
+        We then see that 
+        \[(hk^{-1})^n = h^n(k^{-1})^n = h^n (k^n)^{-1} = 1 \cdot 1^{-1} = 1,\]
+        so that \(hk^{-1} \in H\).
+        (The first equality holds since \(A\) is abelian; check \refex{1.1.24}.)
+        This shows that \(H \le A\). \(\blacksquare\)
+    \end{subparts}
+\end{solution}
+
+\begin{solution}{13}
+    Suppose \(H\) is a subgroup of \(\langle \Q, +\rangle\) with the property that
+    \(1/x \in H\) for any nonzero \(x \in H\).
+    (From now on, we will denote this property by \(\mathcal P\).)
+    If \(H = 0\) then \(\mathcal P\) is trivially satisfied,
+    so assume that there exists some nonzero element \(h \in H\).
+    From here it suffices to show that \(H = \Q\).
+
+    First, we will show that \(1 \in H\) must hold.
+    Since \(h \in \Q\), we can write \(h = a/b\) where \(a, b \in \Z\) and \(\gcd(a, b) = 1\).
+    (Of course, we have \(b \neq 0\).) Then, we have 
+    \[a/b \in H \quad \text{and} \quad b/a \in H,\]
+    where the latter fact follows from \(\mathcal P\).
+    Then, also have 
+    \[a = b\cdot (a/b) \in H \quad \text{and} \quad b = a\cdot (b/a) \in H.\]
+    Here, by the Bézout's identity, there exist some integers \(n, m\) such that \(na + mb = \gcd(a, b) = 1\).
+    This shows that \(1 \in H\).
+
+    Next, we will show that \(1/k \in H\) for any nonzero \(k \in \Z\).
+    Indeed, we see that for any nonzero \(k \in \Z\), we have \(k = k \cdot 1 \in H\),
+    and therefore \(1/k \in H\) by \(\mathcal P\).
+
+    Finally, consider an arbitrary \(q \in \Q\), and we will show that \(q \in H\).
+    We can write \(q = r/s\) for some \(r, s \in \Z\) where \(s \neq 0\).
+    But we know that \(1/s \in H\), and therefore \(r/s = r\cdot(1/s) \in H\).
+    Therefore, \(q \in H\), and we can conclude that \(H = \Q\), as required. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{14}
+    \(s\) and \(sr\) are satisfy \(x^2 = 1\), as we can check in the computations
+    \[s^2 = 1 \quad \text{and} \quad srsr = s(sr^{-1})r = s^2 = 1.\]
+    but \(s(sr) = r\) does not satisfy \(x^2 = 1\) when \(n \ge 3\),
+    since the order of \(r\) is \(n\). \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{15}
+    Let \(H_1 \le H_2 \le \cdots\) be an ascending chain of subgroups of \(G\),
+    and let \(K = \bigcup_{i=1}^\infty H_i\).
+    To prove that \(K \le G\), we will use the subgroup criterion.
+    First, note that \(1 \in K\), since in particular \(1 \in H_1\).
+    (in fact, we have \(1 \in H_i\) for any \(i \in \Z^+\).)
+
+    Now, pick arbitrary elements \(h, k \in K\).
+    This implies that there exist positive integers \(l\) and \(m\) such that
+    \(h \in H_l\) and \(k \in H_m\), and so \(k^{-1} \in H_m\).
+    Since \(H_i\) forms an ascending chain, we then have
+    \[
+    \begin{aligned}
+             h \in H_i & \text{ for any } i \ge l\text{, and} \\
+        k^{-1} \in H_i & \text{ for any } i \ge m.
+    \end{aligned}
+    \]
+    Let \(n = \max\{l, m\}\). Then, we see that \(h, k^{-1} \in H_n\),
+    and therefore \(hk^{-1} \in H_n\) so that \(hk^{-1} \in K\).
+    This concludes that \(K \le G\). \(\blacksquare\)
+\end{solution}
+
 \end{document}
