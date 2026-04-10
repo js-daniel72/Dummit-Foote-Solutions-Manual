@@ -175,7 +175,7 @@ Skipped problems: 1 \(\sim\) 9, 11 \(\sim\) 14
 \end{solution}
 
 \begin{solution}{16}
-    If \(x^2 = 1\), then \(x\) has order of at most 2 by definition. Conversely, if \(x\) has order 1 then \(x^2 = 1^2 = 1\), and if \(x\) has order 2 then \(x^2 = 1\). \(\blacksquare\)
+    If \(x^2 = 1\), then \(x\) has order at most 2 by definition. Conversely, if \(x\) has order 1 then \(x^2 = 1^2 = 1\), and if \(x\) has order 2 then \(x^2 = 1\). \(\blacksquare\)
 \end{solution}
 
 \begin{solution}{17}
@@ -1248,4 +1248,452 @@ Skipped problems: 3
 
 
 \newpage
+\subsection{Homomorphisms and Isomorphisms}
+Skipped problems: 4, 6, 9\(\sim\)12, 17\(\sim\)19, 24\(\sim\)26
+Unfinished problems: 23
+
+\begin{solutionparts}{1}
+    \item We prove by induction that \(\varphi(x^n) = \varphi(x)^n\) for all positive integers \(n\).
+    
+    If \(n = 1\), it is obvious that \(\varphi(x^1) = \varphi(x)^1 = \varphi(x)\).
+    Now, for the inductive step, suppose that \(\varphi(x^k) = \varphi(x)^k\) for some \(k \in \Z^+\).
+    Then, we see that
+    \[
+    \begin{aligned}
+        \varphi(x^{k+1}) &= \varphi(x^kx)\\
+                         &= \varphi(x^k)\varphi(x) & \text{ (since \(\varphi\) is a homomorphism)} \\
+                         &= \varphi(x)^k\varphi(x) & \text{ (by the induction hypothesis)} \\
+                         &= \varphi(x)^{k+1}.
+    \end{aligned}
+    \]
+    This completes our argument. \(\blacksquare\)
+
+    \item
+    The cases where \(n\) is a positive integer is covered in part a.
+
+    First consider the case \(n = 0\). This is essentially proving \(\varphi(1_G) = 1_H\).
+    This is evident once we observe that
+    \(\varphi(1_G) = \varphi(1_G \cdot 1_G) = \varphi(1_G) \cdot \varphi(1_G)\),
+    then applying the (left-)cancellation law.
+
+    Now, consider the case \(n = -1\). Observe that 
+    \(1_H = \varphi(x x^{-1}) = \varphi(x)\varphi(x^{-1})\) and
+    \(1_H = \varphi(x^{-1} x) = \varphi(x^{-1})\varphi(x)\).
+    This illustrates that
+    \(\varphi(x^{-1})\) is the inverse of \(\varphi(x)\), so that  
+    \(\varphi(x^{-1}) = \varphi(x)^{-1}\).
+
+    Finally, consider the case where \(n\) is a negative integer. We wish to show that \(\varphi(x^n) = \varphi(x)^n\).
+    First, we can write \(n = (-1)m\) for some positive integer \(m\).
+    Then we see that \(\varphi(x^n) = \varphi((x^{-1})^m) = \varphi(x^{-1})^m = \varphi(x)^{-m} = \varphi(x)^n\),
+    applying the result for when \(n=-1\) or when \(n\) is positive, whenever necessary.
+    This completes our argument. \(\blacksquare\)
+
+\end{solutionparts}
+
+\noindent From the exercise above, we can roughly say that homomorphisms maps the identity to the identity,
+inverses to inverses,
+and powers to powers.
+
+\begin{solution}{2}
+    Pick any \(x \in G\).
+
+    First, suppose the order of \(x\) is finite and let \(|x| = n\).
+    Then, it is easy to see that \(\varphi(x)^n = \varphi(x^n) = \varphi(1_G) = 1_H\).
+    
+    Now, consider \(\varphi(x)^k = \varphi(x^k)\) for some \(k \in \{1, \cdots, n-1\}\), and we wish to show that \(\varphi(x^k) \neq 1_H\). 
+    Indeed, if \(\varphi(x^k) = 1_H\), then since \(\varphi\) is bijective we have \(x^k = \varphi^{-1}(1_H) = 1_G\),
+    which contradicts that \(x\) has order \(n\). Therefore, we can conclude that \(|\varphi(x)| = n\).
+
+    Suppose now that \(x\) has infinite order in \(G\).
+    Then we can use the same logic from the preceding paragraph,
+    but where \(k\) is chosen from any of \(\Z^+\),
+    to say that \(\varphi(x)\) also has infinite order.
+
+    From our argument, it follows that if \(G\) and \(H\) are isomorphic, then for each
+    \(n \in \Z^+\), the isomorphism \(\varphi\) restricts to a bijection from
+    the set of elements of order \(n\) in \(G\) to the set of elements of order
+    \(n\) in \(H\). Hence \(G\) and \(H\) have the same number of elements of
+    order \(n\).
+
+    This is not true in general when \(\varphi\) is merely a homomorphism.
+    Namely, the mapping \(\varphi: G \to H\) that sends every element in \(G\) to \(1_H\)
+    is a homomorphism, but \(G\) may have elements whose order is not 1. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{3}
+    Suppose first that \(\varphi: G \to H\) is merely a homomorphism. Then, we claim that if \(G\) is abelian,
+    surjectivity of \(\varphi\) ensures that \(H\) is abelian. Assume \(\varphi\) is surjective. Then,
+    for any two \(h, k \in H\), we can find \(x, y \in G\) such that \(h = \varphi(x)\) and \(k = \varphi(y)\).
+    Then, we see that 
+    \[
+    \begin{aligned}
+        hk &= \varphi(x)\varphi(y) \\
+           &= \varphi(xy) & \text{ (since \(\varphi\) is a homomorphism)}\\
+           &= \varphi(yx) & \text{ (since \(G\) is abelian)}\\
+           &= \varphi(y)\varphi(x) & \text{ (since \(\varphi\) is a homomorphism)}\\
+           &= kh.
+    \end{aligned}
+    \]
+    Since the choice of \(h, k \in H\) were arbitrary, we can conclude that \(H\) is abelian.
+
+    We additionally note that if \(\varphi\) is not surjective then \(H\) may be non-abelian.
+    A simple example is \(\varphi: G \to H\) sending every element in \(G\) to \(1_H\).
+
+    Now, suppose \(\varphi : G \to H\) is a group isomorphism.
+    Then, if \(G\) is abelian then \(H\) is also abelian by surjectivity of \(\varphi\).
+    Conversely, if \(H\) is abelian then \(G\) is also abelian by surjectivity of \(\varphi^{-1}\).
+    This completes our argument. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{5}
+    This is evident by the fact that \(|\R| \neq |\Q|\), so that there does not exist a bijection between the two. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{7}
+    \(D_8\) has 5 elements of order 2, while \(Q_8\) only has 1.
+    Then by Exercise 1.6.2, they are not isomorphic. \(\blacksquare\)
+    (Compare the calculations in Exercise 1.2.1(b) and Exercise 1.5.1)
+\end{solution}
+
+\begin{solution}{8}
+    If \(n \neq m\), then \(n! \neq m!\) so \(|S_n| \neq |S_m|\).
+    Therefore we cannot construct a bijection between the two groups. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{13}
+    It is obvious that \(\varphi(G)\) is nonempty.
+    Now, pick any \(h, k \in \varphi(G)\). Then, there exist some \(x, y \in G\) such that
+    \(\varphi(x) = h\) and \(\varphi(y) = k\). Then,
+    we have \[hk = \varphi(x)\varphi(y) = \varphi(xy) \in \varphi(G),\] and 
+    \[h^{-1} = \varphi(x)^{-1} = \varphi(x^{-1}) \in \varphi(G).\]
+    So, \(\varphi(G)\) is closed under multiplication and inverses.
+    This concludes that \(\varphi(G)\) is a subgroup of \(H\). \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{14}
+    We first see that \(\ker \varphi\) is nonempty, since in particular \(\varphi(1_G) = 1_H\).
+    Now, pick any \(g, h \in \ker \varphi\).
+    Then, we see that
+    \(\varphi(gh) = \varphi(g)\varphi(h) = 1_H\cdot 1_H = 1_H\)
+    and \(\varphi(g^{-1}) = \varphi(g)^{-1} = 1_H^{-1} = 1_H\).
+    This shows that \(gh, g^{-1} \in \ker \varphi\), concluding that \(\ker \varphi\) is a subgroup of \(G\).
+    
+    Now, we wish to show that \(\ker \varphi = \{1_G\}\) if and only if \(\varphi\) is injective.
+    The if direction is evident, so for the other direction suppose that \(\ker \varphi = \{1_G\}\).
+    Suppose also that \(\varphi(x) = \varphi(y)\). We want to show that \(x=y\). Here, we see that
+    \[
+    1_H = \varphi(x)\varphi(y)^{-1} = \varphi(xy^{-1}).
+    \]
+
+    But since \(\ker \varphi\) has the only element \(1_G\), \(\varphi(xy^{-1}) = 1_H\) implies that \(xy^{-1} = 1_G\),
+    or that \(x=y\), as required. This completes our argument.
+    \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{15}
+This is immediate from \refex{1.6.16}.
+\end{solution}
+
+\begin{solution}{16}
+    To see that \(\pi_1\) is a homomorphism, observe that for any \((a_1, b_1), (a_2, b_2) \in G\),
+    we have 
+    \[
+    \begin{aligned}
+        \pi_1((a_1, b_1)(a_2, b_2)) &= \pi_1(a_1a_2, b_1b_2)\\
+                                    &= a_1a_2\\
+                                    &= \pi_1(a_1, b_1) \pi_1(a_2, b_2).
+    \end{aligned}
+    \]
+    This shows that \(\pi_1\) is a homomorphism.
+
+    An element \((a, b)\) in \(G\) is in the kernel of \(\pi_1\)
+    if and only if \(\pi_1((a, b)) = 1_A\), which only happens if and only if \(a = 1_A\).
+    Therefore, the kernel can be written as \(\{1_A\} \times B\).
+    
+    Things about \(\pi_2\) can be proven in the exact same steps.
+    \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{20}
+    Pick any \(f, g, h \in \operatorname{Aut}(G)\).
+    We first show that \(\operatorname{Aut}(G)\) is closed under function composition,
+    that is, \(fg\) is an isomorphism from \(G\) onto \(G\).
+    To see that \(fg\) is a homomorphism,
+    observe that for any \(x, y \in G\) we have
+    \(fg(xy) = f(g(x)g(y)) = fg(x)fg(y)\),
+    since \(f\) and \(g\) are both homomorphisms.
+    Also, since \(f\) and \(g\) are both bijective, \(fg\) is also bijective.
+    This shows that \(fg \in \operatorname{Aut}(G)\).
+    
+    Now, it suffices to check the three group axioms.
+    \begin{itemize}
+        \item Associativity: Since function composition is associative,
+        we see that \((fg)h = f(gh)\).
+        \item Identity: The identity function \(\operatorname{id}_G\) is the identity.
+        It is obvious that \(f\operatorname{id}_G = \operatorname{id}_Gf = f\),
+        so we are left to first verify that \(\operatorname{id}_G \in \operatorname{Aut}(G)\);
+        For any \(x, y \in G\), we see that \(\operatorname{id}_G(xy) = xy = \operatorname{id}_G(x)\operatorname{id}_G(y)\).
+        \item Inverse: For \(f\), \(f^{-1}\) satisfies \(ff^{-1} = f^{-1}f = \operatorname{id}_G\).
+        It is left to check that \(f^{-1} \in \operatorname{Aut}(G)\).
+        For any \(x, y \in G\), we have
+        \[f(f^{-1}(x)f^{-1}(y)) = f(f^{-1}(x))f(f^{-1}(y)) = xy.\]
+        Applying \(f^{-1}\) on both sides gives \(f^{-1}(x)f^{-1}(y) = f^{-1}(xy)\), hence \(f^{-1}\)
+        is an isomorphism from \(G\) onto \(G\).
+    \end{itemize}
+
+    This completes our argument. \(\blacksquare\)
+ 
+\end{solution}
+
+\begin{solution}{21}
+    View \(\Q\) as an additive group.
+    Fix any \(k \in \Q\). Let \(\sigma: \Q \to \Q\) be the mapping by \(\sigma(q) = kq\).
+    We wish to show that \(\sigma\) is a homomorphism, and that it is bijective.
+
+    To see that \(\sigma\) is a homomorphism, observe that for any \(p, q \in \Q\),
+    \[
+    \begin{aligned}
+        \sigma(p+q) &= k(p+q) \\
+                    &= kp + kq & \text{ (distributivity of \(\Q\))} \\
+                    &= \sigma(p) + \sigma(q).
+    \end{aligned}
+    \]
+    To see that \(\sigma\) is bijective, observe that the mapping \(\tau: \Q \to \Q\)
+    defined by \(\tau(q) = \frac 1 k \cdot q\)
+    is an explicit inverse (noting that \(\tau(q) \in \Q\) is indeed true):
+    \[\tau\sigma(q) = \tau(kq) = \frac 1 k kq = q\]
+    and \[\sigma\tau(q) = \sigma\left(\frac 1 k q\right) = k\frac 1 k q = q.\]
+    Therefore, \(\tau = \sigma^{-1}\) and \(\sigma\) is bijective.
+    This completes our argument. \(\blacksquare\)
+\end{solution}
+
+
+\begin{solution}{22}
+    Let \(A\) be an abelian group, and fix some \(k \in \Z\).
+    We wish to show that \(\sigma: A \to A\) defined by \(\sigma(a) = a^k\) is a homomorphism.
+    To see this, observe that for any \(a, b \in A\),
+    \[
+    \begin{aligned}
+        \sigma(ab) &= (ab)^k\\
+                   &= a^kb^k & \text{ (\(\because\) \refex{1.1.24})}\\
+                   &= \sigma(a)\sigma(b).
+    \end{aligned}
+    \]
+
+    Now, let \(k = -1\), and we wish to see that in this case \(\sigma\) is an isomorphism.
+    To do this, it suffices to show that \(\sigma\) is bijective.
+    We claim that \(\sigma\) itself is the inverse of \(\sigma\); see that 
+    \[\sigma\sigma(a) = \sigma(a^{-1}) = (a^{-1})^{-1} = a.\]
+    This completes our argument. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{23}
+    Let \(G\) be finite, and \(\sigma\) be an automorphism of \(G\) such that \(\sigma(g) \neq g\) whenever \(g \neq 1\),
+    and \(\sigma^2 = \operatorname{id}_G\).
+    Following the hint, we will first show that every element of \(G\) can be written in the form \(x^{-1}\sigma(x)\).
+    
+    First, observe that \(x \neq y\) implies that \(x^{-1}\sigma(x) \neq y^{-1}\sigma(y)\).
+    This is because 
+\end{solution}
+
+
+
+\newpage
+\subsection{Group Actions}
+Skipped problems: 2, 3, 5, 6, 8\(\sim\)10, 12, 20\(\sim\)23
+\begin{solution}{1}
+    We first see that for any element \(a\) in the field, \(a0 = 0\).
+    This is because \(a0 = a(0+0) = a0 + a0\) by distributivity,
+    and then \(a0 = 0\) by the cancellation laws. Similarly, \(0a = 0\). 
+    
+    Now, we prove the two group action axioms.
+    \begin{enumerate}
+        \item \(g_1(g_2a) = (g_1g_2)a\): Pick any \(g_1, g_2 \in F^\times\).
+        \begin{itemize}
+            \item If \(a = 0\), then viewing every operation as multiplication in \(F\),
+            we see that \(g_1(g_2a) = g_10 = 0\) and \((g_1g_2)a = (g_1g_2)0 = 0\),
+            so that they are equal.
+            \item Otherwise, we can view every operation as multiplication in \(F^\times\).
+            Then, the property directly follows from the associativity of \(F^\times\).
+        \end{itemize}
+        \item \(1a = a\): If \(a = 0\), then \(1a = 0\) in \(F\). Else, \(1a = a\) in \(F\).
+    \end{enumerate}
+    This completes our argument. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{4}
+    To see that \(H\) is a subgroup of \(G\), it suffices to show that 
+    for any \(h, k \in H\), we have \(hk \in H\) and \(h^{-1} \in H\).
+    \begin{subparts}
+        \item Let \(H = \{g \in G \mid gb = b \text{ for all \(b \in A\)}\}\).
+              Pick any \(h, k \in H\). Then, for any \(b \in A\), we have
+              \[
+              \begin{aligned}
+                  (hk)b &= h(kb) & \text{ (group action axiom)}\\
+                        &= hb& \text{ (\(k \in H\))}\\
+                        &= b,& \text{ (\(h \in H\))}
+              \end{aligned}
+              \]
+              which shows that \(hk \in H\). Also, 
+              \[
+              \begin{aligned}
+                  h^{-1}b &= h^{-1}(hb) & (h \in H)\\
+                          &= (h^{-1}h)b & \text{ (group action axiom)}\\
+                          &= b,& \text{ (group action axiom)}
+               \end{aligned}
+              \]
+              which shows that \(h^{-1} \in H\). \(\blacksquare\)
+
+        \item Now fix some \(a \in A\), and let \(H' = \{g \in G \mid ga = a\}\).
+        This is exactly the set
+        \[
+            \{g \in G \mid gb = b \text{ for all } b \in \{a\}\},
+        \]
+        that is, the subgroup from part (a) with \(A\) replaced by the singleton \(\{a\}\).
+        Therefore, following the same logic as in part (a), \(H'\) is a subgroup of \(G\). \(\blacksquare\)
+    \end{subparts}
+\end{solution}
+
+
+\begin{solution}{7}
+    We have the group \(\R\) acting on the set \(\R^n\) where the action is 
+    \[\alpha(r_1, \cdots, r_n) = (\alpha r_1, \cdots, \alpha r_n)\]
+    for \(\alpha \in \R\) and \((r_1, \cdots, r_n) \in \R^n\). 
+    To show that this action is faithful, we will show that the kernel is trivial.
+    Namely, assume \[\alpha (r_1, \cdots, r_n) = (r_1, \cdots, r_n)\] for any \((r_1, \cdots, r_n) \in \R^n\),
+    and we will show that this implies \(\alpha = 1\).
+
+    From the previous assumption we have \(\alpha r_i = r_i\) for \(i = 1, \cdots, n\)
+    where each \(r_i\) is an arbitrary element in \(\R\).
+    Since \(\R\) is a field, then it must be that \(\alpha = 1\), as required. \(\blacksquare\)
+
+\end{solution}
+
+\begin{solution}{11}
+    Recall from Section 1.2 that the vertices of the square are labeled
+    \(1,2,3,4\) in clockwise order. Let \(r\) be the clockwise rotation by
+    \(2\pi/4\), and let \(s\) be the reflection across the line through vertex
+    \(1\) and the center of the square.
+
+    As permutations of \(\{1,2,3,4\}\), we have
+    \(r = (1\ 2\ 3\ 4)\) and \(s = (2\ 4)\).
+
+    Therefore, the eight elements of \(D_8\) are:
+    \[
+    \begin{aligned}
+        1   &= \operatorname{id}, \\
+        r   &= (1\ 2\ 3\ 4), \\
+        r^2 &= (1\ 3)(2\ 4), \\
+        r^3 &= (1\ 4\ 3\ 2), \\
+        s   &= (2\ 4), \\
+        sr  &= (1\ 4)(2\ 3), \\
+        sr^2 &= (1\ 3), \\
+        sr^3 &= (1\ 2)(3\ 4).
+    \end{aligned}
+    \]
+\end{solution}
+
+
+\begin{solution}{13}
+    For a group \(G\) acting on the set \(G\), we must determine what the set 
+    \[\{g \in G \mid ga = a \text{ for all \(a \in G\)}\}\]
+    looks like. But in a group, \(ga = a\) implies \(g = 1\) by right cancallation.
+    Therefore, the kernel must be the trivial subgroup \(\{1\}\). \(\blacksquare\)
+
+    (This shows that the left regular action is faithful.)
+\end{solution}
+
+\begin{solution}{14}
+    Let \(G\) a group and \(A = G\). If the maps are defined by \(g \cdot a = ag\), then
+    it fails to satisfy the compatibility axiom. To see this, pick any \(g, h \in G\) and \(a \in A\).
+    We have \[(gh) \cdot a = a(gh),\] but
+    \[g \cdot (h \cdot a) = g \cdot (ah) = (ah)g.\]
+    For compatibility to be satisfied, the two must equal, so that \(a(gh) = (ah)g\).
+    But then left cancellation implies \(gh = hg\), which is exactly the abelian condition.
+    Therefore, this map satisfy the compatibility axiom if and only if \(G\) is abelian,
+    or in other words if \(G\) is non-abelian the map does \textit{not} satisfy the axiom. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{15}
+    Let \(G\) a group, \(A = G\), and define the maps by \(g \cdot a = ag^{-1}\).
+    Then, fix arbitrary \(g, h \in G\) and \(a \in A\).
+    We then see that \[(gh) \cdot a = a(gh)^{-1} = ah^{-1}g^{-1}\] and
+    \[g \cdot (h \cdot a) = g \cdot (ah^{-1}) = (ah^{-1})g^{-1},\]
+    so that \((gh)\cdot a = g \cdot (h \cdot a)\). Also, \(1 \cdot a = a 1 ^{-1} = a\).
+    This completes our argument. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{16}
+    Let \(G\) a group, \(A = G\), and define the maps by \(g \cdot a = ag^{-1}\).
+    Then, fix arbitrary \(g, h \in G\) and \(a \in A\). Then, we see that
+    \[(gh) \cdot a = (gh) a (gh)^{-1} = ghah^{-1}g^{-1}\]
+    and
+    \[g \cdot (h \cdot a) = g \cdot (hah^{-1}) = g(hah^{-1})g^{-1}.\]
+    From this we observe that \((gh) \cdot a = g \cdot (h \cdot a)\).
+    Also, \(1 \cdot a = 1a1^{-1} = a\). This completes our argument. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{17}
+    Let \(G\) a group, and fix an element \(g \in G\).
+    Define a map \(\varphi: G \to G\) by \[\varphi(x) = gxg^{-1}.\]
+    We will show that \(\varphi\) is an isomorphism.
+
+    First, check the homomorphism property. For any \(x, y \in G\), we see that
+    \[\varphi(xy) = g(xy)g^{-1},\] while \[\varphi(x)\varphi(y) = (gxg^{-1})(gyg^{-1}) = gxyg^{-1},\]
+    so that \(\varphi(xy) = \varphi(x)\varphi(y)\).
+
+    Now, to see that \(\varphi\) is bijective, we will show that the map \(\psi: G \to G\) defined by
+    \[\psi(x) = g^{-1}xg\]
+    is a two-sided inverse of \(\varphi\). Indeed, we can easily see that
+    \[(\psi \circ \varphi)(x) = \psi(gxg^{-1}) = g^{-1}(gxg^{-1})g = x\]
+    and 
+    \[(\varphi \circ \psi)(x) = \varphi(g^{-1}xg) = g(g^{-1}xg)g^{-1} = x.\]
+    This completes our argument that \(\varphi\) is an isomorphism from \(G\) onto itself. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{18}
+    For the relation defined in the exercise, we must show reflexivity, symmetry, and transitivity.
+    \begin{itemize}
+        \item Reflexivity: Fix any \(x \in A\). Since \(1 \in H\), we have \(x = 1x\) so that \(x \sim x\).
+        \item Symmetry: Suppose \(x \sim y\) for some \(x, y \in A\).
+        Then we have \(x = hy\) for some \(h \in H\). This implies \(y = h^{-1}x\),
+        and since \(h^{-1} \in H\) this shows that \(y \sim x\).
+        \item Transitivity: Suppose \(x \sim y\) and \(y \sim z\) for some \(x, y, z \in A\).
+        Then we have \(x = hy\) and \(y = kz\) for some \(h, k \in H\).
+        From this we can deduce \(x = h(kz) = (hk)z\), and since \(hk \in H\) we conclude that \(x \sim z\).
+    \end{itemize}
+    This shows that the relation is indeed an equivalnce relation. \(\blacksquare\)
+\end{solution}
+
+\begin{solution}{19}
+    Let \(G\) be a group and \(H\) a subgroup of \(G\). Fix an element \(x \in G\).
+    Then, the orbit \(\mathcal O\) of \(x\) can be written by
+    \[
+        \mathcal O=\{hx \mid h\in H\}.
+    \]
+    Now, define a map \(\varphi: H \to \mathcal O\) by \(\varphi(h) = hx\). We wish to show that \(\varphi\) is bijective.
+
+    First, to see surjectivity, pick any \(g \in \mathcal O\). Then, by definition of the orbit,
+    we have \(g = hx\) for some \(h \in H\). Therefore, for this \(h\) we have \(\varphi(h) = g\),
+    proving surjectivity.
+
+    Now, to see injectivity, suppose \(\varphi(h) = \varphi(k)\) for some \(h, k \in H\).
+    This implies that \(hx = kx\), and right cancellation in \(G\) yields \(h = k\).
+    This proves injectivity.
+    Therefore, \(\varphi\) is bijective, so the orbit of \(x\) has cardinality \(|H|\).
+    Since \(x\in G\) was arbitrary, every orbit has cardinality \(|H|\).
+
+    By \refex{1.7.18}, the orbits under the action of \(H\) partition the set \(G\).
+    Thus \(G\) is a disjoint union of orbits, each of cardinality \(|H|\). 
+    Therefore, if \(|G|\) is finite then it must be that \(|H|\) divides \(|G|\). \(\blacksquare\)
+\end{solution}
+
+
+
+
+\newpage
+% ==========================================
+%                 Section 2
+% ==========================================
 \end{document}
